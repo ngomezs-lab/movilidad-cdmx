@@ -1,0 +1,10 @@
+*.psd
+*.ai
+*.mov
+*.mp4
+
+.vscode 
+.idea/
+.DS_Store
+.DS_Store?
+// no sirven estos, ignorarlos
