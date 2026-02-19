@@ -1,17 +1,50 @@
-html{
-    font-size: 100;
+:root {
+    --text-color: rgb(230, 91, 27);
+    --bg-color: rgb(42, 80, 100);
+    --accent-color: rgb(0, 0, 0);
+    --tittle-font: "fit-armenian-vf", sans-serif;
+    --text-font: "avory-i-pe-variable", sans-serif;
+
+}
+
+html {
+    font-size: 100%;
+}
+
+header {
+    font-size: 34px;
 }
 
 body {
-    background: rgb(250, 251, 251);
-    color: rgb(80, 125, 217);
-    font-family: "Miller", roman ;
+    background: var(--text-color);
+    color: var(--bg-color);
+    font-family: var(--text-font);
+    font-variation-settings: "wght" 500;
+    font-size: 1.0rem; //crecio de manera proporcional todo 
 }
 
 a {
     color: inherit;
-}h1, h2, h3, h4 {
-    font-family: "fit-armenian-vf", sans-serif;
-    font-variation-settings: "wdth" 900;
 }
 
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--tittle-font);
+    font-variation-settings: "wdth" 900;
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 8em;
+}
+h2 {
+    font-size: 4em;
+}
+h3 {
+    font-size: 5em;
+}
+h4 {
+    font-size: 2em;
+}
