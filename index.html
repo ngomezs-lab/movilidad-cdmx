@@ -1,51 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movilidad CDMX</title>
-   <link rel="stylesheet" href="https://use.typekit.net/wou8phv.css">
-   <link rel="stylesheet" href="https://use.typekit.net/wou8phv.css">
+    <title>Movilidad CDMX — Documentación</title>
+    <meta name="description" content="Documentación del proyecto Movilidad CDMX con enfoque de género, objetivos, alcance, arquitectura de información y sistema visual.">
+    <link rel="stylesheet" href="https://use.typekit.net/wou8phv.css">
     <link rel="stylesheet" href="./css/style.css">
 
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="./" title="Ir al Inicio">Home</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Movilidad CDMX</h1>
-        <p>Bienvenido a Movilidad CDMX, tu fuente de informacion</p>
-        <section id="objetivo-principal">
-            <h2>Objetivo principal</h2>
-            <p>Analizar cómo el género influye en las condiciones de movilidad de las mujeres en el transporte público, considerando cómo el privilegio territorial y socioeconómico influye en la experiencia de movilidad de la mujer, evidenciando que no todas las mujeres viven el trayecto con el mismo nivel de seguridad, tiempo y riesgo.</p>
-        </section>
-        <section>
-            <h2>Objetivo Secundario</h2>
-            <p>Identificar las principales situaciones de inseguridad que enfrentan las mujeres en el transporte público.
-(acoso, miedo, horarios restringidos, rutas evitadas, etc.)
-</p>
-            <article>
-                <h3>Enfoque</h3>
-                <p> Enfoque centrado en un territorio específico y en la perspectiva de género, entendiendo la movilidad no solo como desplazamiento físico, sino como una experiencia corporal y situada, atravesada por desigualdades estructurales, territoriales y socioeconómicas que condicionan la seguridad, el tiempo y el riesgo en el trayecto.
-</p>
-    <header>
-        <nav>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Navegación principal">
+            <a href="./" class="logo" title="Ir al inicio">Movilidad CDMX</a>
             <ul>
-                <li><a href="Introducción">Concepto</a></li>
-                <li><a href="Exploración del tema">Arquitectura</a></li>
-                <li><a href="sistema-visual">Sistema visual</a></li>
-                <li><a href="tecnologia">Tecnología</a></li>
+                <li><a href="#introduccion">Introducción</a></li>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#enfoque">Enfoque</a></li>
+                <li><a href="#arquitectura">Arquitectura</a></li>
+                <li><a href="#sistema-visual">Sistema visual</a></li>
+                <li><a href="#tecnologia">Tecnología</a></li>
             </ul>
         </nav>
+        <section class="hero" id="introduccion">
+            <p class="eyebrow">Documentación 2026</p>
+            <h1>Movilidad CDMX</h1>
+            <p class="lead">Análisis de la movilidad de mujeres en el transporte público desde una perspectiva de género, territorial y socioeconómica. El objetivo es visibilizar desigualdades de seguridad, tiempo y riesgo en los trayectos cotidianos.</p>
+            <div class="hero-cards">
+                <div class="card">
+                    <h2>Problema</h2>
+                    <p>La movilidad femenina no es uniforme: el contexto territorial y económico altera la percepción de seguridad, la duración del trayecto y la exposición al riesgo.</p>
+                </div>
+                <div class="card">
+                    <h2>Propósito</h2>
+                    <p>Traducir estos hallazgos en una narrativa clara, visual y accesible que aporte evidencia para el diseño de soluciones urbanas.</p>
+                </div>
+            </div>
+        </section>
     </header>
-            </article>
+    <main>
+        <section id="objetivos" class="section">
+            <h2>Objetivos</h2>
+            <div class="grid">
+                <article>
+                    <h3>Objetivo principal</h3>
+                    <p>Analizar cómo el género influye en las condiciones de movilidad de las mujeres en el transporte público, considerando el privilegio territorial y socioeconómico que modifica la experiencia de trayecto.</p>
+                </article>
+                <article>
+                    <h3>Objetivos específicos</h3>
+                    <ul>
+                        <li>Identificar las principales situaciones de inseguridad: acoso, miedo, horarios restringidos y rutas evitadas.</li>
+                        <li>Comparar patrones de movilidad entre zonas con distinto acceso a infraestructura y servicios.</li>
+                        <li>Detectar puntos críticos donde la percepción de riesgo condiciona la elección de transporte.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="enfoque" class="section">
+            <h2>Enfoque y alcance</h2>
+            <p>El proyecto se centra en un territorio específico de la Ciudad de México y utiliza una perspectiva de género para entender la movilidad como una experiencia corporal y situada. Se consideran desigualdades estructurales, territoriales y socioeconómicas que afectan la seguridad, el tiempo y el riesgo.</p>
+            <div class="callout">
+                <h3>Preguntas guía</h3>
+                <ul>
+                    <li>¿Cómo cambia la experiencia del trayecto según la zona de residencia?</li>
+                    <li>¿Qué factores inciden en la percepción de seguridad durante el viaje?</li>
+                    <li>¿Qué decisiones toma una usuaria ante un entorno percibido como inseguro?</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="arquitectura" class="section">
+            <h2>Arquitectura de información</h2>
+            <p>La estructura del contenido prioriza la comprensión rápida del problema y la navegación por temas clave. La jerarquía se organiza en niveles: contexto, hallazgos, y visualización de datos.</p>
+            <ol>
+                <li>Contexto y objetivos del proyecto.</li>
+                <li>Mapa de actores y escenarios de movilidad.</li>
+                <li>Resultados, visualizaciones y conclusiones.</li>
+            </ol>
+        </section>
+
+        <section id="sistema-visual" class="section">
+            <h2>Sistema visual</h2>
+            <p>Se utilizan contrastes altos para resaltar datos críticos y un código cromático que diferencia niveles de riesgo y tiempo. La tipografía refuerza la jerarquía con tamaños y pesos bien definidos.</p>
+            <div class="grid">
+                <article>
+                    <h3>Color</h3>
+                    <p>Colores cálidos para riesgo, fríos para contexto y neutros para texto continuo.</p>
+                </article>
+                <article>
+                    <h3>Tipografía</h3>
+                    <p>Títulos con la familia display y texto con una familia legible en párrafos extensos.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="tecnologia" class="section">
+            <h2>Tecnología</h2>
+            <p>El prototipo se implementa en HTML y CSS con enfoque en accesibilidad. Se prioriza un diseño responsivo y modular para facilitar futuras iteraciones.</p>
+            <ul>
+                <li>HTML semántico para estructura y accesibilidad.</li>
+                <li>CSS moderno para jerarquía visual y contraste.</li>
+                <li>Compatibilidad para navegación móvil y escritorio.</li>
+            </ul>
         </section>
     </main>
-    <footer>
-        <p> 2026 Movilidad-Documentacion</p>
+    <footer class="site-footer">
+        <p>© 2026 Movilidad CDMX — Documentación.</p>
     </footer>
 </body>
 </html>
