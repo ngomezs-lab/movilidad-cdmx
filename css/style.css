@@ -1,10 +1,16 @@
 :root {
     --text-color: rgb(255, 255, 255);
-    --bg-color: rgb();
+    --bg-color: rgb(176,240,1);
     --accent-color: rgb(230, 91, 27);
     --accent-soft: rgba(230, 91, 27, 0.12);
     --secondary-color: rgb(42, 80, 100);
-    --tittle-font: "fit-armenian-vf", sans-serif;
+    --tittle-font: "Oswald", sans-serif;
+.oswald-<uniquifier> {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
     --text-font: "avory-i-pe-variable", sans-serif;
 
 }
