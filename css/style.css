@@ -1,6 +1,6 @@
 :root {
-    --text-color: rgb(18, 24, 30);
-    --bg-color: rgb(245, 246, 248);
+    --text-color: rgb(255, 255, 255);
+    --bg-color: rgb();
     --accent-color: rgb(230, 91, 27);
     --accent-soft: rgba(230, 91, 27, 0.12);
     --secondary-color: rgb(42, 80, 100);
