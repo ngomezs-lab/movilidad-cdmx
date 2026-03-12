@@ -149,7 +149,7 @@ footer {
 }
 
 .lead {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: rgb(255, 255, 255);
     padding: 2.5rem ;
     background: rgba(53, 52, 52, 0.7);
@@ -206,6 +206,8 @@ ul {
 footer {
     text-align: center;
     width: 100%;
+        font-size: 3rem;
+
 }
 
 footer a {
