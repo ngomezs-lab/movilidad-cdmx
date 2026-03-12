@@ -5,15 +5,7 @@
     --secondary-color: rgb(252, 254, 255);
     --tittle-font: "Oswald", sans-serif;
     --text-font: "adapter-mono-pe-variable", sans-serif;
-font-variation-settings: "BORD" 300, "ital" 0, "slnt" 0, "wght" 200;
-
-/* .oswald{
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
 }
- */
 html {
     font-size: 16px; /* 100% - 1rem */
     scroll-behavior: smooth;
@@ -33,8 +25,7 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center;
-   
-
+    font-variation-settings: "BORD" 300, "ital" 0, "slnt" 0, "wght" 200;
     font-size: 4rem;
     line-height: 1.6;
 }
