@@ -1,11 +1,11 @@
 :root {
     --text-color: rgb(255, 255, 255);
-    --title-color: rgb(176,240,1);
+    --title-color: rgb(195, 250, 44);
     --accent-color: rgba(255, 35, 122);
     --secondary-color: rgb(252, 254, 255);
     --tittle-font: "Oswald", sans-serif;
-    --text-font: "avory-i-pe-variable", sans-serif;
-}
+    --text-font: "adapter-mono-pe-variable", sans-serif;
+font-variation-settings: "BORD" 300, "ital" 0, "slnt" 0, "wght" 200;
 
 /* .oswald{
   font-family: "Oswald", sans-serif;
@@ -28,7 +28,7 @@ body {
     background: var(--bg-color);
     color: var(--text-color);
     font-family: var(--text-font);
-    background-image: url("../img/foto-hero.png");
+    background-image: url("../img/foto-hero-editada.png");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -41,9 +41,10 @@ body {
 
 a {
     color: inherit;
-  font-family: var(--tittle-font);
+  font-family: var(--text-font);
   font-variation-settings: 'wdth' 500;
   font-weight: 100;
+
   
 }
 a:hover {
@@ -54,7 +55,7 @@ h1,
 h2,
 h3,
 h4 {
-    font-family: var(--tittle-font);
+    font-family: var(--text-font);
     font-variation-settings: "wdth" 900;
     font-weight: 100;
     color: var(--secondary-color);
@@ -75,6 +76,7 @@ h2 {
     font-size: clamp(1.6rem, 1.6vw + 1rem, 2.4rem);
     margin: 0 0 0.75rem;
      padding: 2rem ;
+     text-font-variation-settings: "wdth" 900;
 }
 h3 {
     font-size: 1.4rem;
@@ -93,6 +95,7 @@ a {
     text-decoration: none;
     color: var(--secondary-color);
     font-weight: 600;
+    text-font-variation-settings: 
      padding: 2rem ;
 }
 a:hover{
@@ -153,6 +156,7 @@ footer {
     color: rgb(255, 255, 255);
     padding: 2.5rem ;
     background: rgba(53, 52, 52, 0.7);
+    font-family: var(--text-font);
 }
 
 .hero-cards {
