@@ -27,7 +27,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     font-variation-settings: "BORD" 300, "ital" 0, "slnt" 0, "wght" 200;
-    font-size: 4rem;
+    font-size: 5rem;
     line-height: 1.6;
 }
 
@@ -56,7 +56,7 @@ h4 {
 
 h1 {
     color: var(--title-color);
-    font-size: 10vw;
+    font-size: 11vw;
     margin: 0 0 0.5rem;
     font-variation-settings: "wgth" 900;
     font-weight: 900;
@@ -66,7 +66,9 @@ h1 {
 h2 {
 
     font-size: clamp(1.6rem, 1.6vw + 1rem, 2.4rem);
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.6rem;
+     font-size: 4.5w;
+     color: var(--title-color);
      padding: 2rem ;
      text-font-variation-settings: "wdth" 900;
 }
