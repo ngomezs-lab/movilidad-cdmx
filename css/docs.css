@@ -1,0 +1,27 @@
+:root {
+    --text-color: black;
+    --title-color: rgb(195, 250, 44);
+    --accent-color: rgba(255, 35, 122);
+    --secondary-color: rgb(252, 254, 255);
+    --title-font: "Oswald", sans-serif;
+    --text-font: "adapter-mono-pe-variable", sans-serif;
+}
+html {
+    font-size: 16px; /* 100% - 1rem */
+    scroll-behavior: smooth;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--text-font);
+    font-variation-settings: "BORD" 300, "ital" 0, "slnt" 0, "wght" 200;
+    font-size: 5rem;
+    line-height: 1.6;
+}
