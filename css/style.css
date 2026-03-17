@@ -7,7 +7,7 @@
     --text-font: "adapter-mono-pe-variable", sans-serif;
 }
 html {
-    font-size: 16px; /* 100% - 1rem */
+    font-size: 10px; /* 100% - 1rem */
     scroll-behavior: smooth;
 }
 
@@ -27,7 +27,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     font-variation-settings: "BORD" 300, "ital" 0, "slnt" 0, "wght" 200;
-    font-size: 5rem;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
