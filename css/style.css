@@ -131,9 +131,13 @@ a:hover{
 footer {
     font-size: 1em;
 }
+footer#home-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
 
 .hero {
-    margin-top: 2rem;
     display: grid;
     gap: 0.5rem;
 }
@@ -141,6 +145,8 @@ footer {
 .hero h1 {
     margin: 0;
     padding-bottom: 0.2rem;
+    padding-top: 0;
+    transform: translateY(-0.8rem);
 }
 
 .hero h2 {
