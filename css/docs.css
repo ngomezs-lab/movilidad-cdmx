@@ -27,7 +27,7 @@ body {
     font-size: 1rem;
     line-height: 1.6;
 }
-
+h1,
 h2 {
     font-family: var(--title-font);
     color: var(--title-color);
