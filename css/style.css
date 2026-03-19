@@ -234,6 +234,42 @@ footer a {
     padding: 0.5rem 1rem;
 }
 
+#home-footer a {
+    position: relative;
+    overflow: visible;
+}
+
+#home-footer a::before {
+    content: "Leer documento";
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, -0.4rem);
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+footer a:hover,
+footer a:active {
+    background-color: white;
+    color: var(--accent-color);
+}
+
+#home-footer a:hover::before,
+#home-footer a:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -0.8rem);
+}
+
 @media (max-width: 700px) {
     .site-header,
     main {
