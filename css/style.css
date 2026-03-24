@@ -6,8 +6,10 @@
     --title-font: "Oswald", sans-serif;
     --text-font: "adapter-mono-pe-variable", sans-serif;
 }
+
 html {
-    font-size: 10px; /* 100% - 1rem */
+    font-size: 10px;
+    /* 100% - 1rem */
     scroll-behavior: smooth;
 }
 
@@ -33,16 +35,18 @@ body {
 
 a {
     color: inherit;
-  font-family: var(--text-font);
-  font-variation-settings: 'wdth' 500;
-  font-weight: 100;
+    font-family: var(--text-font);
+    font-variation-settings: 'wdth' 500;
+    font-weight: 100;
 
-  
+
 }
+
 a:hover {
     color: var(--accent-color);
     font-variation-settings: 'wdth' 400;
 }
+
 h1,
 h2,
 h3,
@@ -51,7 +55,7 @@ h4 {
     font-variation-settings: "wdth" 900;
     font-weight: 100;
     color: var(--secondary-color);
-    padding: 2rem  ;
+    padding: 2rem;
 }
 
 h1 {
@@ -61,41 +65,48 @@ h1 {
     font-variation-settings: "wgth" 900;
     font-weight: 900;
     text-transform: uppercase;
-     padding: 2rem ;
+    padding: 2rem;
 }
+
 h2 {
- 
+
     font-size: clamp(1.6rem, 1.6vw + 1rem, 2.4rem);
     margin: 0 0 0.6rem;
     font-size: 4.0vw;
-     color: var(--title-color);
-     font-weight: 400;
-     padding: 2rem ;
+    color: var(--title-color);
+    font-weight: 400;
+    padding: 2rem;
     font-variation-settings: "wdth" 900;
 }
+
 h3 {
     font-size: 1.4rem;
     margin: 0 0 0.5rem;
-     padding: 2rem ;
+    padding: 2rem;
 }
+
 h4 {
     font-size: 1.2rem;
-     padding: 2rem ;
+    padding: 2rem;
 }
+
 p,
 li {
     max-width: 65ch;
 }
+
 a {
     text-decoration: none;
     color: var(--secondary-color);
     font-weight: 600;
     font-variation-settings: "wdth" 500;
-     padding: 2rem ;
+    padding: 2rem;
 }
-a:hover{
+
+a:hover {
     color: var(--accent-color);
 }
+
 .site-header {
     background: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -118,8 +129,9 @@ a:hover{
     flex-wrap: wrap;
     gap: 1rem;
 }
+
 .main-content {
-  padding: 2rem;
+    padding: 2rem;
 }
 
 .logo {
@@ -131,6 +143,7 @@ a:hover{
 footer {
     font-size: 1em;
 }
+
 footer#home-footer {
     position: fixed;
     bottom: 0;
@@ -169,8 +182,9 @@ footer#home-footer {
 .lead {
     font-size: 1.5rem;
     color: rgb(255, 255, 255);
-    padding: 2.5rem ;
+    padding: 2.5rem;
     background: rgba(53, 52, 52, 0.7);
+    border-radius: 16px;
     font-family: var(--text-font);
 }
 
@@ -193,7 +207,7 @@ main {
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 7rem;
-    
+
 }
 
 .section {
@@ -201,7 +215,7 @@ main {
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 12px 30px rgba(18, 24, 30, 0.08);
-    
+
 }
 
 .grid {
@@ -284,6 +298,7 @@ footer a:active {
 }
 
 @media (max-width: 700px) {
+
     .site-header,
     main {
         padding: 1.5rem 6vw 2.5rem;
