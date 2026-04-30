@@ -15,7 +15,7 @@
 <body>
     <main>
         <section class="hero" id="introduccion">
-            <h1><img src="./img/expuestas rgb.svg" alt="EXPUESTAS"></h1>
+            <h1 id="expuestas-title">EXPUESTAS</h1>
             <h2>Seguridad y desigualdad en el transporte públicos</h2>
             <p class="lead">Este proyecto analiza cómo el género influye
                 en las condiciones de movilidad de las mujeres en el transporte público,
@@ -29,5 +29,19 @@
     <footer id="home-footer">
         <a href="docs/index.html" title="Lee la documentación">Conoce más</a>
     </footer>
+
+    <script>
+        const title = document.getElementById('expuestas-title');
+        const text = title.textContent;
+        title.textContent = '';
+        
+        for (let i = 0; i < text.length; i++) {
+            const span = document.createElement('span');
+            span.textContent = text[i];
+            span.className = 'letter';
+            span.style.setProperty('--index', i);
+            title.appendChild(span);
+        }
+    </script>
 </body>
 </html>
