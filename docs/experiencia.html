@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movilidad CDMX — Experiencia</title>
+    <meta name="description"
+        content="Apartado independiente de experiencia para el proyecto Movilidad CDMX.">
+    <link rel="stylesheet" href="https://use.typekit.net/wou8phv.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            background-image: url("../img/carteles.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #background-audio {
+            position: fixed;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .experience-cta {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.6rem;
+            z-index: 60;
+            pointer-events: auto;
+        }
+
+        .experience-cta p {
+            color: var(--secondary-color);
+            font-size: 1.05rem;
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+        }
+
+        .cta-button {
+            background: var(--title-color);
+            color: #08100e;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Navegación principal">
+            <a href="./" class="logo" title="Ir a documentación">Movilidad CDMX</a>
+            <ul>
+                <li><a href="index.html#introduccion">Introducción</a></li>
+                <li><a href="index.html#objetivos">Objetivos</a></li>
+                <li><a href="index.html#enfoque">Enfoque</a></li>
+                <li><a href="index.html#metodologia">Metodología</a></li>
+                <li><a href="index.html#problema">Problema</a></li>
+                <li><a href="index.html#proposito">Propósito</a></li>
+                <li><a href="experiencia.html?autoplay=1">Experiencia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <audio id="background-audio" preload="auto">
+        <source src="../img/expuestas.mp4" type="audio/mp4">
+    </audio>
+
+    <main>
+        <div class="experience-cta">
+            <p>¿Listo para la siguiente estación?</p>
+            <a href="proxima-estacion.html" class="cta-button">Continuar →</a>
+        </div>
+    </main>
+
+    <script>
+        const audio = document.getElementById('background-audio');
+        const shouldAutoplay = new URLSearchParams(window.location.search).get('autoplay') === '1' || true;
+
+        async function startBackgroundAudio() {
+            try {
+                audio.volume = 0.5;
+                await audio.play();
+            } catch (error) {
+                void error;
+            }
+        }
+
+        if (shouldAutoplay) {
+            startBackgroundAudio();
+        }
+    </script>
+</body>
+
+</html>
