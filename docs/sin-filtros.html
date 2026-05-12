@@ -12,6 +12,27 @@
       min-height: 100vh;
       margin: 0;
       padding: 2rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .page-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .page-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.4));
+      z-index: -1;
+      pointer-events: none;
     }
 
     .wrap {
@@ -21,9 +42,48 @@
     }
 
     h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
+      position: relative;
+      display: inline-block;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      font-weight: 900;
       color: var(--title-color);
-      margin: 0 0 1rem;
+      margin: 0 0 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 0.92;
+      text-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.45),
+        0 8px 22px rgba(0, 0, 0, 0.45),
+        0 0 24px rgba(255, 214, 102, 0.12);
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 68%;
+      height: 0.22rem;
+      margin: 0.55rem auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--title-color), transparent);
+      box-shadow: 0 0 20px rgba(255, 214, 102, 0.45);
+    }
+
+    .copy-section {
+      position: relative;
+      max-width: 70ch;
+      margin: 0 auto 1.5rem;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 2rem 1.5rem;
+    }
+
+    .copy {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      line-height: 1.6;
+      margin: 0;
     }
 
     .next {
@@ -38,6 +98,22 @@
       font-family: var(--text-font);
     }
 
+    .home-link {
+      display: inline-block;
+      margin-left: 0.75rem;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--secondary-color);
+      padding: 0.75rem 1.1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .home-link:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
     .hidden {
       display: none;
     }
@@ -45,8 +121,13 @@
     .cards-grid {
       margin-top: 1.5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 0.75rem;
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
+      gap: 1rem;
+      justify-items: center;
+      align-items: start;
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .card {
@@ -93,9 +174,17 @@
   </style>
 </head>
 <body>
+  <video class="page-video" autoplay muted loop playsinline>
+    <source src="../img/videometro.mp4" type="video/mp4">
+  </video>
+  <div class="page-overlay"></div>
   <div class="wrap">
     <h1>Sin Filtros</h1>
+    <div class="copy-section">
+      <p class="copy">Sin Filtros es una estación para jugar, reír, cuestionar y hablar desde otro lugar. Lo que entre amigos, muchas veces no se dice … hasta que alguien decide mirar estas frases distinto y reflexionar.</p>
+    </div>
     <button id="start-game" class="next" type="button">Jugar</button>
+    <a class="home-link" href="index.html">Home</a>
 
     <section id="cards-section" class="hidden" aria-label="Cartas aleatorias">
       <div id="cards-grid" class="cards-grid"></div>
@@ -118,19 +207,25 @@
     }
 
     function renderCards() {
-      const backImages = Array.from({ length: totalCards }, (_, index) => {
+      // Build shuffled deck
+      const deck = Array.from({ length: totalCards }, (_, index) => {
         const id = String(index + 1).padStart(2, '0');
         return `../img/cartas/card${id}-back.png`;
       });
 
-      const randomBacks = shuffle(backImages.slice());
+      const shuffled = shuffle(deck.slice());
+
+      // visible: first 3 cards; pool: rest of deck
+      const visible = shuffled.splice(0, 3);
+      const pool = shuffled.slice();
+
       cardsGrid.innerHTML = '';
 
-      randomBacks.forEach((backSrc, index) => {
+      visible.forEach((backSrc, idx) => {
         const cardButton = document.createElement('button');
         cardButton.className = 'card';
         cardButton.type = 'button';
-        cardButton.setAttribute('aria-label', `Voltear carta ${index + 1}`);
+        cardButton.setAttribute('aria-label', `Voltear carta ${idx + 1}`);
 
         cardButton.innerHTML = `
           <span class="card-inner">
@@ -138,17 +233,44 @@
               <img src="${frontImage}" alt="Frente de carta">
             </span>
             <span class="card-face card-back">
-              <img src="${backSrc}" alt="Pregunta de carta ${index + 1}">
+              <img src="${backSrc}" alt="Pregunta de carta ${idx + 1}">
             </span>
           </span>
         `;
 
+        // store current src on element for cycling
+        cardButton.dataset.current = backSrc;
+
         cardButton.addEventListener('click', () => {
+          // rotate other open cards closed
           cardsGrid.querySelectorAll('.card.is-flipped').forEach((openCard) => {
-            if (openCard !== cardButton) {
-              openCard.classList.remove('is-flipped');
-            }
+            if (openCard !== cardButton) openCard.classList.remove('is-flipped');
           });
+
+          // Get next image from pool
+          let next = pool.shift();
+          // Safety: if pool item is same as current, push it back and take next
+          const current = cardButton.dataset.current;
+          if (!next) {
+            // pool empty: rebuild from current and others to avoid stop
+            // push current back to pool and take it
+            pool.push(current);
+            next = pool.shift();
+          }
+          if (next === current) {
+            pool.push(next);
+            next = pool.shift();
+          }
+
+          // Rotate: put current at pool end so it won't repeat immediately
+          pool.push(current);
+
+          // Update dataset and back image src
+          cardButton.dataset.current = next;
+          const backImg = cardButton.querySelector('.card-back img');
+          if (backImg) backImg.src = next;
+
+          // Toggle flip to show updated back
           cardButton.classList.toggle('is-flipped');
         });
 
