@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "Expuestas";
+    src: url("./Expuestas.woff2") format("woff2");
+}
 :root {
     --text-color: rgb(236, 241, 245);
     --title-color: rgb(195, 250, 44);

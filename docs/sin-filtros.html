@@ -186,6 +186,7 @@
     </div>
     <button id="start-game" class="next" type="button">Jugar</button>
     <a class="home-link" href="index.html">Home</a>
+    <button id="end-game" class="home-link hidden" type="button">Terminar juego</button>
 
     <section id="cards-section" class="hidden" aria-label="Cartas aleatorias">
       <div id="cards-grid" class="cards-grid"></div>
@@ -194,6 +195,13 @@
 
   <script>
     const startButton = document.getElementById('start-game');
+    const endButton = document.getElementById('end-game');
+    const pageVideo = document.querySelector('.page-video');
+    const pageVideoSource = pageVideo ? pageVideo.querySelector('source') : null;
+    const originalVideoSrc = pageVideoSource ? pageVideoSource.getAttribute('src') : '';
+    const originalVideoLoop = pageVideo ? pageVideo.loop : false;
+    const originalVideoZ = pageVideo ? pageVideo.style.zIndex : '';
+    const originalVideoOpacity = pageVideo ? pageVideo.style.opacity : '';
     const cardsSection = document.getElementById('cards-section');
     const cardsGrid = document.getElementById('cards-grid');
     const frontImage = '../img/cartas/front.png';
@@ -282,8 +290,50 @@
     startButton.addEventListener('click', () => {
       startButton.classList.add('hidden');
       cardsSection.classList.remove('hidden');
+      // show end button when game starts
+      if (endButton) endButton.classList.remove('hidden');
       renderCards();
     });
+
+    if (endButton) {
+      endButton.addEventListener('click', () => {
+        const ok = confirm('¿Terminar el juego?');
+        if (!ok) return;
+
+        // Play final video (metrofinal.mp4)
+        if (pageVideo && pageVideoSource) {
+          pageVideoSource.setAttribute('src', '../img/metrofinal.mp4');
+          // ensure we don't loop the final clip
+          pageVideo.loop = false;
+          // keep muted to allow autoplay in most browsers
+          pageVideo.muted = true;
+          // bring video to front and make it fully visible
+          pageVideo.style.zIndex = '9999';
+          pageVideo.style.opacity = '1';
+          pageVideo.load();
+          pageVideo.play().catch(() => {});
+
+          // when final video ends, restore original background video
+          pageVideo.onended = () => {
+            pageVideoSource.setAttribute('src', originalVideoSrc);
+            pageVideo.loop = originalVideoLoop;
+            pageVideo.style.zIndex = originalVideoZ || '-2';
+            pageVideo.style.opacity = originalVideoOpacity || '0.75';
+            pageVideo.load();
+            pageVideo.play().catch(() => {});
+            pageVideo.onended = null;
+          };
+        }
+
+        // hide cards and reset UI
+        cardsSection.classList.add('hidden');
+        cardsGrid.innerHTML = '';
+        // ensure start button is visible again
+        startButton.classList.remove('hidden');
+        // hide end button until next game
+        endButton.classList.add('hidden');
+      });
+    }
   </script>
 </body>
 </html>
