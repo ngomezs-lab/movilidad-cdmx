@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movilidad CDMX — Estación Interactiva</title>
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <link rel="stylesheet" href="https://use.typekit.net/wou8phv.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ecf1f5;
+            font-family: "adapter-mono-pe-variable", sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background y efectos ambiente */
+        .metro-bg {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 1200px 600px at 50% 40%, rgba(255, 35, 122, 0.08), transparent 70%),
+                radial-gradient(ellipse 900px 500px at 50% 60%, rgba(195, 250, 44, 0.06), transparent 70%),
+                linear-gradient(180deg, #0f1419 0%, #0a0a0a 50%, #050505 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Video background del metro */
+        .metro-video {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Overlay sobre video */
+        .metro-overlay {
+            position: fixed;
+            inset: 0;
+            background: 
+                linear-gradient(90deg, transparent, rgba(255, 35, 122, 0.1), transparent),
+                linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+            z-index: -1;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* Niebla volumétrica */
+        .fog-layer {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 150% 100% at 50% 50%, rgba(255, 35, 122, 0.12) 0%, transparent 40%),
+                radial-gradient(ellipse 100% 150% at 30% 30%, rgba(195, 250, 44, 0.08) 0%, transparent 35%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(40px);
+            animation: fogDrift 8s ease-in-out infinite;
+        }
+
+        @keyframes fogDrift {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Barra de navegación */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(8, 10, 14, 0.85);
+            border-bottom: 1px solid rgba(195, 250, 44, 0.1);
+            box-shadow: 0 0 20px rgba(255, 35, 122, 0.05);
+        }
+
+        .site-nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: "Oswald", sans-serif;
+            color: #c3fa2c;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(195, 250, 44, 0.3);
+            transition: text-shadow 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 20px rgba(195, 250, 44, 0.6);
+        }
+
+        .site-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .site-nav li a {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: #ecf1f5;
+            border: 1px solid rgba(195, 250, 44, 0.2);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: rgba(195, 250, 44, 0.05);
+        }
+
+        .site-nav li a:hover {
+            color: #c3fa2c;
+            border-color: rgba(195, 250, 44, 0.5);
+            background: rgba(195, 250, 44, 0.12);
+            box-shadow: 0 0 15px rgba(195, 250, 44, 0.2);
+            text-shadow: 0 0 8px rgba(195, 250, 44, 0.4);
+        }
+
+        /* Contenedor principal */
+        .metro-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Scroll container para parallax */
+        .scroll-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            padding: 200vh 0;
+        }
+
+        /* Logo flotante central */
+        .floating-logo {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: clamp(200px, 40vw, 600px);
+            aspect-ratio: 1;
+            pointer-events: none;
+            animation: floatLogo 6s ease-in-out infinite;
+        }
+
+        .floating-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(195, 250, 44, 0.4)) drop-shadow(0 0 60px rgba(255, 35, 122, 0.2));
+            opacity: 0.85;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-30px); }
+        }
+
+        /* Superficies de metro */
+        .metro-surface {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .metro-floor {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, 
+                rgba(255, 35, 122, 0.1) 0%, 
+                rgba(195, 250, 44, 0.06) 50%, 
+                transparent 100%);
+            border-top: 1px solid rgba(195, 250, 44, 0.2);
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        /* Secciones de contenido */
+        .content-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .content-section:nth-child(1) {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255, 35, 122, 0.08));
+        }
+
+        .content-section:nth-child(2) {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(195, 250, 44, 0.06));
+        }
+
+        .content-section:nth-child(3) {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255, 35, 122, 0.05));
+        }
+
+        .content-box {
+            max-width: 700px;
+            background: rgba(8, 10, 14, 0.6);
+            border: 1px solid rgba(195, 250, 44, 0.3);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 40px rgba(195, 250, 44, 0.1),
+                inset 0 0 40px rgba(255, 35, 122, 0.03);
+            transform: translateY(calc(var(--scroll) * 0.1px));
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover {
+            border-color: rgba(195, 250, 44, 0.6);
+            box-shadow: 
+                0 0 60px rgba(195, 250, 44, 0.2),
+                inset 0 0 40px rgba(255, 35, 122, 0.06);
+        }
+
+        .content-box h2 {
+            font-family: "Oswald", sans-serif;
+            font-size: 2.5rem;
+            color: #c3fa2c;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 10px rgba(195, 250, 44, 0.3),
+                0 0 20px rgba(255, 35, 122, 0.1);
+        }
+
+        .content-box p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ecf1f5;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-box .accent {
+            color: #ff238a;
+            font-weight: 700;
+        }
+
+        /* Botón interactivo */
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, #c3fa2c, #ff238a);
+            color: #08100e;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(195, 250, 44, 0.2), 0 0 40px rgba(255, 35, 122, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(195, 250, 44, 0.4), 0 0 80px rgba(255, 35, 122, 0.2);
+        }
+
+        /* Efectos de líneas de metro */
+        .metro-lines {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(195, 250, 44, 0.05) 25%, rgba(195, 250, 44, 0.05) 26%, transparent 27%, transparent 74%, rgba(195, 250, 44, 0.05) 75%, rgba(195, 250, 44, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(255, 35, 122, 0.05) 25%, rgba(255, 35, 122, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 35, 122, 0.05) 75%, rgba(255, 35, 122, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+        }
+
+        /* Glitch effect subtle */
+        @keyframes glitch {
+            0% {
+                text-shadow: 
+                    2px 0 #c3fa2c,
+                    -2px 0 #ff238a;
+            }
+            20% {
+                text-shadow: 
+                    -2px 0 #c3fa2c,
+                    2px 0 #ff238a;
+            }
+            40% {
+                text-shadow: 
+                    1px 0 #c3fa2c,
+                    -1px 0 #ff238a;
+            }
+            60% {
+                text-shadow: 
+                    -1px 0 #c3fa2c,
+                    1px 0 #ff238a;
+            }
+            100% {
+                text-shadow: 
+                    0 0 #c3fa2c,
+                    0 0 #ff238a;
+            }
+        }
+
+        .glitch-text:hover {
+            animation: glitch 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .content-box {
+                padding: 2rem 1.5rem;
+            }
+
+            .content-box h2 {
+                font-size: 2rem;
+            }
+
+            .floating-logo {
+                width: clamp(150px, 50vw, 400px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <video class="metro-video" autoplay muted loop playsinline>
+        <source src="../img/videometro.mp4" type="video/mp4">
+    </video>
+    <div class="metro-bg"></div>
+    <div class="metro-overlay"></div>
+    <div class="fog-layer"></div>
+    <div class="metro-lines"></div>
+    <div class="metro-floor"></div>
+
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Navegación principal">
+            <a href="./" class="logo" title="Ir a documentación">Movilidad CDMX</a>
+            <ul>
+                <li><a href="experiencia.html?autoplay=1">Experiencia</a></li>
+                <li><a href="index.html#introduccion">Introducción</a></li>
+                <li><a href="index.html#objetivos">Objetivos</a></li>
+                <li><a href="index.html#enfoque">Enfoque</a></li>
+                <li><a href="index.html#metodologia">Metodología</a></li>
+                <li><a href="index.html#problema">Problema</a></li>
+                <li><a href="index.html#proposito">Propósito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="metro-container">
+        <div class="floating-logo">
+            <img src="../img/ex.png" alt="Expuestas">
+        </div>
+
+        <div class="scroll-container">
+            <!-- Sección 1 -->
+            <div class="content-section">
+                <div class="content-box glitch-text">
+                    <h2>Estación Expuestas</h2>
+                    <p>Bienvenida a una experiencia inmersiva bajo tierra. Aquí convergen <span class="accent">seguridad, desigualdad y movilidad urbana</span> en el transporte público de la Ciudad de México.</p>
+                    <p>Navega por los testimonios y datos que revelan las realidades de las mujeres en el metro.</p>
+                </div>
+            </div>
+
+            <!-- Sección 2 -->
+            <div class="content-section">
+                <div class="content-box">
+                    <h2>Percepciones de Seguridad</h2>
+                    <p>La inseguridad no es solo un dato objetivo. Es una experiencia vivida, una <span class="accent">hipervigilancia constante</span>, una restricción invisible que define los trayectos diarios de miles de mujeres.</p>
+                    <p>Miedo, adaptación, estrategias de supervivencia urbana.</p>
+                </div>
+            </div>
+
+            <!-- Sección 3 -->
+            <div class="content-section">
+                <div class="content-box">
+                    <h2>Desigualdad Territorial</h2>
+                    <p>No todas las mujeres experimentan la misma realidad. El contexto <span class="accent">socioeconómico y territorial</span> altera fundamentalmente la percepción del riesgo, la duración del trayecto, la exposición a la violencia.</p>
+                    <a href="index.html" class="cta-button">Explorar documentación</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parallax effect basado en scroll
+        let scrollProgress = 0;
+        const root = document.documentElement;
+
+        window.addEventListener('scroll', () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress = (window.scrollY / scrollHeight) * 100;
+            root.style.setProperty('--scroll', window.scrollY);
+
+            // Efecto de profundidad en el logo
+            const logo = document.querySelector('.floating-logo');
+            logo.style.opacity = 1 - (window.scrollY / window.innerHeight) * 0.5;
+            logo.style.transform = `translate(-50%, -50%) translateY(${window.scrollY * 0.1}px) scale(${1 - (window.scrollY / window.innerHeight) * 0.1})`;
+        });
+
+        // Efecto de interactividad en los boxes
+        const contentBoxes = document.querySelectorAll('.content-box');
+        contentBoxes.forEach((box) => {
+            box.addEventListener('mousemove', (e) => {
+                const rect = box.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) * 0.05;
+                const rotateY = (centerX - x) * 0.05;
+
+                box.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            box.addEventListener('mouseleave', () => {
+                box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
