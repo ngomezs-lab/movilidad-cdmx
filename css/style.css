@@ -173,6 +173,7 @@ footer#home-footer {
     z-index: 20;
 }
 
+
 .hero {
     display: grid;
     gap: 0.5rem;
@@ -287,6 +288,39 @@ footer a {
     overflow: visible;
 }
 
+/* Hero CTA on home — thick pink bar, centered; turns green on hover */
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto 0;
+    padding: 0.9rem 2.2rem;
+    min-height: 56px;
+    border-radius: 6px;
+    background: var(--accent-color); /* pink */
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+    box-shadow: 0 10px 30px rgba(255,35,122,0.12), 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 180ms ease, background 180ms ease, color 120ms ease;
+    z-index: 30;
+}
+
+.hero-cta:hover,
+.hero-cta:focus {
+    background: var(--title-color); /* green */
+    color: #08100e;
+    transform: translateY(-3px);
+}
+
+.hero-cta:active { transform: translateY(-1px); }
+
+@media (max-width: 600px) {
+    .hero-cta { font-size: 1.2rem; padding: 0.8rem 1.2rem; min-height: 48px; }
+}
+
 #home-footer a::before {
     content: "Leer documento";
     position: absolute;
@@ -324,4 +358,69 @@ footer a:active {
     main {
         padding: 1.5rem 6vw 2.5rem;
     }
+}
+
+/* Fixed thin footer (subtle, cinematic) */
+.site-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+    background: linear-gradient(180deg, rgba(6,8,10,0.48), rgba(8,10,12,0.32)),
+                radial-gradient(circle at 10% 20%, rgba(255,35,122,0.02), transparent 16%),
+                radial-gradient(circle at 90% 80%, rgba(195,250,44,0.02), transparent 18%);
+    backdrop-filter: blur(6px) saturate(0.98);
+    border-top: 1px solid rgba(255,255,255,0.02);
+    color: rgba(255,255,255,0.82);
+    font-size: 0.95rem;
+    padding: 0 1rem;
+    box-shadow: 0 -6px 18px rgba(0,0,0,0.32);
+    position: fixed;
+}
+
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 5px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255,35,122,0.95), rgba(195,250,44,0.95));
+    box-shadow: 0 6px 14px rgba(195,250,44,0.04), 0 6px 16px rgba(255,35,122,0.04);
+    opacity: 0.75;
+}
+
+.site-footer-inner {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: center;
+    font-family: var(--text-font);
+}
+
+.site-footer-left,
+.site-footer-right {
+    opacity: 0.88;
+    color: rgba(252,254,255,0.88);
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: var(--text-font);
+}
+
+/* Pages that should be immersive can add `no-footer` to the body */
+body.no-footer .site-footer { display: none !important; }
+
+@media (max-width: 720px) {
+    .site-footer { height: 64px; font-size: 0.95rem; }
+    .site-footer-inner { padding: 0 0.6rem; gap: 0.5rem; }
+    .site-footer::before { width: 56px; height: 5px; }
 }

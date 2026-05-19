@@ -17,7 +17,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         body {
@@ -25,7 +25,7 @@
             color: #ecf1f5;
             font-family: "adapter-mono-pe-variable", sans-serif;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         /* Background y efectos ambiente */
@@ -160,8 +160,9 @@
         .scroll-container {
             position: relative;
             width: 100%;
-            height: auto;
-            padding: 100vh 0 120vh;
+            height: 100vh;
+            padding: 0;
+            overflow: hidden;
         }
 
         .station-sign {
@@ -368,6 +369,38 @@
             background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255, 35, 122, 0.05));
         }
 
+        /* Sección solo imagen: imagen grande y estática */
+        .content-section.image-only {
+            height: 100vh;
+            min-height: 100vh;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+        }
+
+        .image-only-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .hero-static-image {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            object-fit: contain;
+            display: block;
+            margin: 0;
+            filter: none;
+            position: relative;
+            z-index: 5;
+        }
+
         .content-box {
             max-width: 700px;
             background: rgba(8, 10, 14, 0.6);
@@ -542,7 +575,7 @@
 
     <header class="site-header">
         <nav class="site-nav" aria-label="Navegación principal">
-            <a href="./" class="logo" title="Ir a documentación">Movilidad CDMX</a>
+            <a href="../index.html" class="logo" title="Ir al inicio">Movilidad CDMX</a>
             <ul>
                 <li><a href="experiencia.html?autoplay=1">Experiencia</a></li>
                 <li><a href="index.html#introduccion">Introducción</a></li>
@@ -558,77 +591,23 @@
     <div class="metro-container">
         <div class="scroll-container">
             <!-- Sección 1 -->
-            <div class="content-section">
-                <div class="station-sign" id="estacion">
-                    <img src="../img/ex.png" alt="Expuestas">
-                </div>
-                <div class="content-box glitch-text">
-                    <img src="../img/ex.png" alt="Expuestas" class="station-heading-logo">
-                    <p>Bienvenida a un espacio donde convergen la seguridad, la desigualdad y la movilidad urbana dentro del transporte público de la Ciudad de México.</p>
-                    <p>Explora testimonios, datos y experiencias que visibilizan las realidades que enfrentan diariamente las mujeres en el metro. A través de una narrativa visual inmersiva, Expuestas revela las tensiones, vulnerabilidades y relaciones de poder presentes en un espacio que debería ser seguro para todas.</p>
-                </div>
-            </div>
-
-            <!-- Sección 2 -->
-            <div class="content-section">
-                <div class="content-box">
-                    <h2>Percepciones de Seguridad</h2>
-                    <p>La inseguridad no es solo un dato objetivo. Es una experiencia vivida, una <span class="accent">hipervigilancia constante</span>, una restricción invisible que define los trayectos diarios de miles de mujeres.</p>
-                    <p>Miedo, adaptación, estrategias de supervivencia urbana.</p>
-                </div>
-            </div>
-
-            <!-- Sección 3 -->
-            <div class="content-section">
-                <div class="content-box">
-                    <h2>Desigualdad Territorial</h2>
-                    <p>No todas las mujeres experimentan la misma realidad. El contexto <span class="accent">socioeconómico y territorial</span> altera fundamentalmente la percepción del riesgo, la duración del trayecto, la exposición a la violencia.</p>
-                    <a href="index.html" class="cta-button">Explorar documentación</a>
-                </div>
-            </div>
+            <div class="content-section image-only" id="estacion">
+                <div class="image-only-container">
+                        <img src="../img/proyectolect.png" alt="Proyecto — imagen principal" class="hero-static-image">
+                <!-- Sección 2 y 3 eliminadas: página muestra solo la imagen estática como solicitaste -->
         </div>
     </div>
 
     <script>
-        // Parallax effect basado en scroll
-        let scrollProgress = 0;
-        const root = document.documentElement;
-
-        window.addEventListener('scroll', () => {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            scrollProgress = (window.scrollY / scrollHeight) * 100;
-            root.style.setProperty('--scroll', window.scrollY);
-
-                // Subtle fade on anchored station image (no float transform)
-                const logoImg = document.querySelector('.station-sign img');
-                if (logoImg) {
-                    logoImg.style.opacity = 1 - Math.min(window.scrollY / window.innerHeight, 0.8) * 0.25;
-                }
-        });
-
-        // Efecto de interactividad en los boxes
-        const contentBoxes = document.querySelectorAll('.content-box');
-        contentBoxes.forEach((box) => {
-            box.addEventListener('mousemove', (e) => {
-                const rect = box.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = (y - centerY) * 0.05;
-                const rotateY = (centerX - x) * 0.05;
-
-                box.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-            box.addEventListener('mouseleave', () => {
-                box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-            });
-        });
-
-        
+        // No interactive scripts for this page — imagen estática solamente.
     </script>
+
+    <!-- No scroll logic required — page is full-screen static -->
+    <footer class="site-footer" role="contentinfo" aria-label="Footer del sitio">
+        <div class="site-footer-inner">
+            <div class="site-footer-left">Expuestas — Proyecto de movilidad urbana y género · 2026</div>
+            <div class="site-footer-right">Natasha Gómez · Sarai Bautista · Allison Baltazar</div>
+        </div>
+    </footer>
 </body>
 </html>
