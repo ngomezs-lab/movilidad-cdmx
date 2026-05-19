@@ -383,19 +383,7 @@ footer a:active {
     position: fixed;
 }
 
-.site-footer::before {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 64px;
-    height: 5px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, rgba(255,35,122,0.95), rgba(195,250,44,0.95));
-    box-shadow: 0 6px 14px rgba(195,250,44,0.04), 0 6px 16px rgba(255,35,122,0.04);
-    opacity: 0.75;
-}
+.site-footer::before { display: none !important; }
 
 .site-footer-inner {
     width: 100%;
