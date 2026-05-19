@@ -161,33 +161,145 @@
             position: relative;
             width: 100%;
             height: auto;
-            padding: 200vh 0;
+            padding: 100vh 0 120vh;
         }
 
-        /* Logo flotante central */
-        .floating-logo {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            width: clamp(200px, 40vw, 600px);
-            aspect-ratio: 1;
-            pointer-events: none;
-            animation: floatLogo 6s ease-in-out infinite;
+        .station-sign {
+            width: min(100%, 760px);
+            margin: 0 auto 1.25rem;
+            padding: 1rem;
+            border-radius: 22px;
+            border: 1px solid rgba(195, 250, 44, 0.28);
+            background:
+                linear-gradient(135deg, rgba(8, 10, 14, 0.86), rgba(255, 35, 122, 0.08)),
+                rgba(8, 10, 14, 0.7);
+            backdrop-filter: blur(14px);
+            box-shadow:
+                0 0 40px rgba(195, 250, 44, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+            display: grid;
+            gap: 1rem;
+            justify-items: center;
         }
 
-        .floating-logo img {
-            width: 100%;
-            height: 100%;
+        .station-sign img {
+            width: clamp(220px, 38vw, 520px);
+            height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(195, 250, 44, 0.4)) drop-shadow(0 0 60px rgba(255, 35, 122, 0.2));
-            opacity: 0.85;
+            max-width: 520px;
+            filter: drop-shadow(0 0 28px rgba(195, 250, 44, 0.38)) drop-shadow(0 0 48px rgba(255, 35, 122, 0.18));
+            opacity: 0.98;
         }
 
-        @keyframes floatLogo {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-            50% { transform: translate(-50%, -50%) translateY(-30px); }
+        .station-heading-logo {
+            display: block;
+            margin: 0 auto 0.6rem;
+            max-width: 480px;
+            width: clamp(200px, 36vw, 460px);
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(195, 250, 44, 0.36)) drop-shadow(0 0 36px rgba(255, 35, 122, 0.14));
+        }
+
+        .station-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(236, 241, 245, 0.82);
+            font-size: 0.86rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .station-kicker::before {
+            content: '';
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 50%;
+            background: #c3fa2c;
+            box-shadow: 0 0 12px rgba(195, 250, 44, 0.75);
+        }
+
+        .station-stage {
+            width: min(100%, 760px);
+            margin: 0 auto;
+            padding: 2rem 0 0;
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .focus-panel {
+            display: grid;
+            gap: 1rem;
+            padding: 1rem 1.1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(195, 250, 44, 0.22);
+            background: linear-gradient(180deg, rgba(8, 10, 14, 0.78), rgba(8, 10, 14, 0.5));
+            box-shadow: 0 0 26px rgba(255, 35, 122, 0.08);
+        }
+
+        .focus-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .focus-chip {
+            appearance: none;
+            border: 1px solid rgba(195, 250, 44, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-color);
+            border-radius: 999px;
+            padding: 0.65rem 0.95rem;
+            font: inherit;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .focus-chip:hover,
+        .focus-chip.is-active {
+            transform: translateY(-2px);
+            border-color: rgba(195, 250, 44, 0.55);
+            background: rgba(195, 250, 44, 0.12);
+            color: #c3fa2c;
+        }
+
+        .focus-copy {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(236, 241, 245, 0.9);
+        }
+
+        .signal-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .signal-card {
+            display: grid;
+            gap: 0.35rem;
+            padding: 0.9rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .signal-card strong {
+            font-family: "Oswald", sans-serif;
+            color: #c3fa2c;
+            letter-spacing: 0.04em;
+        }
+
+        .signal-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(195, 250, 44, 0.35);
+            background: rgba(195, 250, 44, 0.08);
         }
 
         /* Superficies de metro */
@@ -214,6 +326,22 @@
             filter: blur(2px);
         }
 
+            /* Logo anclado dentro del flujo, no flotante */
+            .station-sign {
+                margin: 0 auto 1.5rem;
+                width: clamp(140px, 28vw, 420px);
+                display: block;
+                text-align: center;
+            }
+
+            .station-sign img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                filter: drop-shadow(0 0 18px rgba(195, 250, 44, 0.32)) drop-shadow(0 0 30px rgba(255, 35, 122, 0.14));
+                opacity: 0.95;
+            }
+
         /* Secciones de contenido */
         .content-section {
             position: relative;
@@ -227,7 +355,9 @@
         }
 
         .content-section:nth-child(1) {
-            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255, 35, 122, 0.08));
+            background:
+                radial-gradient(circle at 50% 20%, rgba(195, 250, 44, 0.1), transparent 28%),
+                linear-gradient(135deg, rgba(0,0,0,0.74), rgba(255, 35, 122, 0.08));
         }
 
         .content-section:nth-child(2) {
@@ -248,7 +378,7 @@
             box-shadow: 
                 0 0 40px rgba(195, 250, 44, 0.1),
                 inset 0 0 40px rgba(255, 35, 122, 0.03);
-            transform: translateY(calc(var(--scroll) * 0.1px));
+            transform: translateY(calc(var(--scroll, 0) * 0.06px));
             transition: all 0.3s ease;
         }
 
@@ -382,8 +512,20 @@
                 font-size: 2rem;
             }
 
-            .floating-logo {
-                width: clamp(150px, 50vw, 400px);
+            .station-sign {
+                padding: 0.9rem;
+            }
+
+            .station-sign img {
+                max-width: 180px;
+            }
+
+            .focus-panel {
+                padding: 0.9rem;
+            }
+
+            .signal-row {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -414,17 +556,16 @@
     </header>
 
     <div class="metro-container">
-        <div class="floating-logo">
-            <img src="../img/ex.png" alt="Expuestas">
-        </div>
-
         <div class="scroll-container">
             <!-- Sección 1 -->
             <div class="content-section">
+                <div class="station-sign" id="estacion">
+                    <img src="../img/ex.png" alt="Expuestas">
+                </div>
                 <div class="content-box glitch-text">
-                    <h2>Estación Expuestas</h2>
-                    <p>Bienvenida a una experiencia inmersiva bajo tierra. Aquí convergen <span class="accent">seguridad, desigualdad y movilidad urbana</span> en el transporte público de la Ciudad de México.</p>
-                    <p>Navega por los testimonios y datos que revelan las realidades de las mujeres en el metro.</p>
+                    <img src="../img/ex.png" alt="Expuestas" class="station-heading-logo">
+                    <p>Bienvenida a un espacio donde convergen la seguridad, la desigualdad y la movilidad urbana dentro del transporte público de la Ciudad de México.</p>
+                    <p>Explora testimonios, datos y experiencias que visibilizan las realidades que enfrentan diariamente las mujeres en el metro. A través de una narrativa visual inmersiva, Expuestas revela las tensiones, vulnerabilidades y relaciones de poder presentes en un espacio que debería ser seguro para todas.</p>
                 </div>
             </div>
 
@@ -458,10 +599,11 @@
             scrollProgress = (window.scrollY / scrollHeight) * 100;
             root.style.setProperty('--scroll', window.scrollY);
 
-            // Efecto de profundidad en el logo
-            const logo = document.querySelector('.floating-logo');
-            logo.style.opacity = 1 - (window.scrollY / window.innerHeight) * 0.5;
-            logo.style.transform = `translate(-50%, -50%) translateY(${window.scrollY * 0.1}px) scale(${1 - (window.scrollY / window.innerHeight) * 0.1})`;
+                // Subtle fade on anchored station image (no float transform)
+                const logoImg = document.querySelector('.station-sign img');
+                if (logoImg) {
+                    logoImg.style.opacity = 1 - Math.min(window.scrollY / window.innerHeight, 0.8) * 0.25;
+                }
         });
 
         // Efecto de interactividad en los boxes
@@ -485,6 +627,8 @@
                 box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
             });
         });
+
+        
     </script>
 </body>
 </html>
