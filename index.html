@@ -79,11 +79,11 @@
     <!-- Chat widget -->
     <div class="chat-toggle" id="chatToggle" aria-label="Abrir chat">💬</div>
     <div class="chat-box" id="chatBox" role="dialog" aria-hidden="true">
-        <div class="chat-header">Chat — Proyecto</div>
-        <div class="chat-messages" id="chatMessages"><div style="opacity:.6;font-size:.9rem">Hola — escribe y presiona Enviar.</div></div>
+        <div class="chat-header">Contacto</div>
+        <div class="chat-messages" id="chatMessages"><div style="opacity:.6;font-size:.9rem">Escribe tu mensaje abajo y presiona "Enviar correo" para contactarnos por email.</div></div>
         <div class="chat-input">
             <input id="chatInput" type="text" placeholder="Escribe tu mensaje..." />
-            <button id="chatSend">Enviar</button>
+            <button id="chatSend">Enviar correo</button>
         </div>
     </div>
 
@@ -117,7 +117,17 @@
 
             function send(){
                 const text = input.value.trim(); if(!text) return;
-                const el = document.createElement('div'); el.textContent = text; el.style.marginBottom='0.6rem'; el.style.color='var(--secondary-color)'; messages.appendChild(el); messages.scrollTop = messages.scrollHeight; input.value=''; 
+                const to = 'ngomezs@centro.edu.mx,sbautista@centro.edu.mx,abaltazar@centro.edu.mx';
+                const subject = 'Contacto — Movilidad CDMX';
+                const body = text;
+                const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(to) + '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                const mailto = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                const newWin = window.open(gmailUrl, '_blank');
+                if(!newWin){
+                    window.location.href = mailto;
+                }
+                input.value = '';
+                messages.innerHTML = '<div style="opacity:.8;font-size:.9rem">Se abrirá su cliente de correo para enviar el mensaje.</div>';
             }
         })();
     </script>
