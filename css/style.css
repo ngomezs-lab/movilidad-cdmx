@@ -1,6 +1,12 @@
 @font-face {
     font-family: "Expuestas";
-    src: url("./Expuestas.woff2") format("woff2");
+    src: url("./rodillo-Regular.woff") format("woff");
+}
+@font-face {
+    font-family: "Urbana";
+    src: url("./urbana-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
 }
 :root {
     --text-color: rgb(255, 255, 255);
@@ -77,6 +83,23 @@ h1 {
     display: flex;
     align-items: center;
     text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.3);
+}
+
+#expuestas-title {
+    font-size: 11vw;
+}
+
+#introduccion h2 {
+    font-family: "Urbana", var(--text-font) !important;
+    -webkit-font-smoothing: antialiased;
+    text-transform: uppercase;
+    font-size: clamp(3.6rem, 6vw, 8.3rem);
+    color: var(--accent-color);
+    letter-spacing: 0.06em;
+    line-height: 1.0;
+}
+.initial-s {
+    display: inline-block;
 }
 
 h1 .letter {
@@ -182,7 +205,7 @@ footer#home-footer {
 .hero h1 {
     margin: 0;
     padding-bottom: 0.2rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     transform: translateY(0);
 }
 
@@ -210,6 +233,11 @@ footer#home-footer {
     font-family: var(--text-font);
 }
 
+/* Compact lead inside hero to save vertical space */
+.hero .lead {
+    padding: 1.2rem;
+}
+
 .hero-cards {
     display: grid;
     gap: 1rem;
@@ -228,7 +256,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 7rem;
+    padding-bottom: 4rem;
 
 }
 
@@ -293,7 +321,7 @@ footer a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 2rem auto 0;
+    margin: 1rem auto 0;
     padding: 0.9rem 2.2rem;
     min-height: 56px;
     border-radius: 6px;
@@ -313,6 +341,53 @@ footer a {
     background: var(--title-color); /* green */
     color: #08100e;
     transform: translateY(-3px);
+}
+
+/* Chat widget */
+.chat-toggle {
+    position: fixed;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #08100e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+    cursor: pointer;
+    z-index: 1000;
+}
+.chat-box {
+    position: fixed;
+    right: 1.2rem;
+    bottom: 4.8rem;
+    width: min(92vw, 360px);
+    max-height: 60vh;
+    background: rgba(8,10,14,0.94);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+}
+.chat-box.open { display: flex; }
+.chat-header { padding: 0.8rem 1rem; background: rgba(255,255,255,0.02); color: var(--secondary-color); font-weight: 700; }
+.chat-messages { padding: 1rem; flex: 1; overflow: auto; color: var(--secondary-color); font-size: 0.95rem; }
+.chat-input { display: flex; gap: 0.5rem; padding: 0.6rem; border-top: 1px solid rgba(255,255,255,0.04); }
+.chat-input input { flex: 1; padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: transparent; color: var(--secondary-color); }
+.chat-input button { background: var(--accent-color); border-radius: 8px; padding: 0.6rem 0.8rem; border: none; color: #08100e; font-weight: 700; cursor: pointer; }
+
+/* Informational message shown when opening the chat */
+.chat-info {
+    padding: 1rem;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+    line-height: 1.3;
+    opacity: 0.95;
 }
 
 .hero-cta:active { transform: translateY(-1px); }

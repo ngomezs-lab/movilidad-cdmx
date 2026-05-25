@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Expuestas";
-    src: url("./Expuestas.woff2") format("woff2");
+    src: url("./rodillo-Regular.woff") format("woff");
 }
 :root {
     --text-color: rgb(236, 241, 245);

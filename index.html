@@ -50,7 +50,7 @@
     <main>
         <section class="hero" id="introduccion">
             <h1 id="expuestas-title">EXPUESTAS</h1>
-            <h2>Seguridad y desigualdad en el transporte público</h2>
+            <h2>Seguridad y desigualdad<br>en el transporte público</h2>
             <p class="lead">Este proyecto analiza cómo el género influye
                 en las condiciones de movilidad de las mujeres en el transporte público,
                 considerando como la percepción de la seguridad, el privilegio territorial y socioeconómico afecta su
@@ -75,6 +75,51 @@
             span.style.setProperty('--index', i);
             title.appendChild(span);
         }
+    </script>
+    <!-- Chat widget -->
+    <div class="chat-toggle" id="chatToggle" aria-label="Abrir chat">💬</div>
+    <div class="chat-box" id="chatBox" role="dialog" aria-hidden="true">
+        <div class="chat-header">Chat — Proyecto</div>
+        <div class="chat-messages" id="chatMessages"><div style="opacity:.6;font-size:.9rem">Hola — escribe y presiona Enviar.</div></div>
+        <div class="chat-input">
+            <input id="chatInput" type="text" placeholder="Escribe tu mensaje..." />
+            <button id="chatSend">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const toggle = document.getElementById('chatToggle');
+            const box = document.getElementById('chatBox');
+            const sendBtn = document.getElementById('chatSend');
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+
+            function showInfo(){
+                messages.innerHTML = '<div class="chat-info">Proyecto Movilidad 2026<br>Expuestas<br>Sarai Bautista, Natasha Gómez, Allison Baltazar</div>';
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            toggle.addEventListener('click', ()=>{
+                const opening = !box.classList.contains('open');
+                box.classList.toggle('open');
+                box.setAttribute('aria-hidden', String(!box.classList.contains('open')));
+                if(opening){
+                    showInfo();
+                    input.focus();
+                } else {
+                    input.blur();
+                }
+            });
+
+            sendBtn.addEventListener('click', send);
+            input.addEventListener('keypress', (e)=>{ if(e.key==='Enter') send(); });
+
+            function send(){
+                const text = input.value.trim(); if(!text) return;
+                const el = document.createElement('div'); el.textContent = text; el.style.marginBottom='0.6rem'; el.style.color='var(--secondary-color)'; messages.appendChild(el); messages.scrollTop = messages.scrollHeight; input.value=''; 
+            }
+        })();
     </script>
 </body>
 </html>
