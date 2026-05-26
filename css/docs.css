@@ -100,6 +100,123 @@ a {
     background: rgba(195, 250, 44, 0.08);
 }
 
+/* Dropdown "Introducción" styles */
+.site-nav .nav-intro {
+    position: relative;
+}
+
+.nav-trigger {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--secondary-color);
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 200ms ease, border-color 200ms ease, background 200ms ease, transform 180ms ease;
+    line-height: 1;
+}
+
+.nav-trigger:after {
+    content: "▾";
+    font-size: 0.7rem;
+    opacity: 0.85;
+    transform-origin: 50% 40%;
+    margin-left: 0.28rem;
+    transition: transform 220ms ease;
+}
+
+.nav-intro:focus-within .nav-trigger:after,
+.nav-intro.open .nav-trigger:after,
+.nav-intro:hover .nav-trigger:after {
+    transform: rotate(-180deg);
+}
+
+/* Make nav-trigger visually match the pill links */
+.nav-trigger:hover,
+.nav-trigger:focus {
+    color: var(--title-color);
+    border-color: var(--title-color);
+    background: rgba(195, 250, 44, 0.08);
+}
+
+/* Ensure nav items align vertically and share similar sizing */
+.site-nav ul { align-items: center; }
+
+.subnav {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    background: linear-gradient(180deg, rgba(6,8,10,0.62), rgba(6,8,10,0.48));
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px) saturate(1.06);
+    padding: 0.45rem;
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 4px 18px rgba(195,250,44,0.06);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    opacity: 0;
+    transform: translateY(6px) scale(0.995);
+    pointer-events: none;
+    transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+    z-index: 80;
+}
+
+.subnav a {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    color: var(--secondary-color);
+    font-size: 0.92rem;
+    transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.subnav a:hover {
+    background: rgba(195,250,44,0.06);
+    color: var(--title-color);
+    transform: translateX(4px);
+}
+
+.nav-intro:hover .subnav,
+.nav-intro.open .subnav,
+.nav-intro:focus-within .subnav {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Extra-specific rules to prevent accidental flex/wrap from other selectors
+   Ensure subnav is always a single vertical column and items stretch full width */
+.site-nav > ul > li.nav-intro > .subnav,
+.site-nav .nav-intro > .subnav,
+.site-nav .subnav {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: auto;
+}
+
+.subnav li { width: 100%; }
+.subnav a { display: block; width: 100%; }
+
+/* Mobile: make subnav full-width and static when opened via toggle */
+@media (max-width: 700px) {
+    .subnav {
+        position: static;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        background: rgba(8,10,12,0.6);
+        border-radius: 10px;
+        padding: 0.35rem;
+    }
+    .site-nav ul { flex-direction: column; align-items: flex-end; }
+}
+
 main {
     max-width: 1100px;
     margin: 0 auto;

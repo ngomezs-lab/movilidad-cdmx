@@ -317,12 +317,18 @@
             <a href="./" class="logo" title="Ir a documentación">Movilidad CDMX</a>
             <ul>
                 <li><a href="experiencia.html?autoplay=1">Experiencia</a></li>
-                <li><a href="index.html#introduccion">Introducción</a></li>
-                <li><a href="index.html#objetivos">Objetivos</a></li>
-                <li><a href="index.html#enfoque">Enfoque</a></li>
-                <li><a href="index.html#metodologia">Metodología</a></li>
-                <li><a href="index.html#problema">Problema</a></li>
-                <li><a href="index.html#proposito">Propósito</a></li>
+                <li><a href="identidad.html">Identidad</a></li>
+                <li class="nav-intro">
+                    <button class="nav-trigger" aria-haspopup="true" aria-expanded="false">Introducción</button>
+                    <ul class="subnav" role="menu" aria-label="Secciones de introducción">
+                        <li><a role="menuitem" href="index.html#introduccion">Introducción</a></li>
+                        <li><a role="menuitem" href="index.html#objetivos">Objetivos</a></li>
+                        <li><a role="menuitem" href="index.html#enfoque">Enfoque</a></li>
+                        <li><a role="menuitem" href="index.html#metodologia">Metodología</a></li>
+                        <li><a role="menuitem" href="index.html#problema">Problema</a></li>
+                        <li><a role="menuitem" href="index.html#proposito">Propósito</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -504,6 +510,52 @@
                 void testimoniosVideo.play();
             }
         });
+
+        // Dropdown 'Introducción' interaction (click toggle for touch, accessible via keyboard)
+        (function(){
+            const navIntro = document.querySelector('.nav-intro');
+            if(!navIntro) return;
+            const trigger = navIntro.querySelector('.nav-trigger');
+
+            function closeMenu(){
+                navIntro.classList.remove('open');
+                if(trigger) trigger.setAttribute('aria-expanded', 'false');
+            }
+
+            function openMenu(){
+                navIntro.classList.add('open');
+                if(trigger) trigger.setAttribute('aria-expanded', 'true');
+            }
+
+            // only attach click-toggle on devices that don't support hover (touch)
+            const wantsClickToggle = window.matchMedia && (window.matchMedia('(hover: none)').matches || window.matchMedia('(pointer: coarse)').matches);
+            if (wantsClickToggle) {
+                trigger.addEventListener('click', (e)=>{
+                    e.stopPropagation();
+                    const isOpen = navIntro.classList.toggle('open');
+                    trigger.setAttribute('aria-expanded', String(isOpen));
+                });
+            }
+
+            // Keyboard: Esc to close
+            document.addEventListener('keydown', (e)=>{
+                if(e.key === 'Escape') closeMenu();
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e)=>{
+                if(!navIntro.contains(e.target)) closeMenu();
+            });
+
+            // Keep aria-expanded in sync with focus
+            navIntro.addEventListener('focusin', ()=> openMenu());
+            navIntro.addEventListener('focusout', (e)=>{
+                // small delay lets clicks on menu items fire
+                setTimeout(()=>{
+                    if(!navIntro.contains(document.activeElement)) closeMenu();
+                }, 10);
+            });
+        })();
     </script>
 </body>
 
