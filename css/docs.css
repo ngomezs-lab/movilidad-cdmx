@@ -2,6 +2,10 @@
     font-family: "Expuestas";
     src: url("./rodillo-Regular.woff") format("woff");
 }
+@font-face {
+    font-family: "Urbana";
+    src: url("./urbana-Regular.woff") format("woff");
+}
 :root {
     --text-color: rgb(236, 241, 245);
     --title-color: rgb(195, 250, 44);
@@ -63,10 +67,10 @@ a {
 }
 
 .logo {
-    font-family: var(--title-font);
+    font-family: "Expuestas", var(--title-font);
     color: var(--title-color);
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
@@ -109,6 +113,19 @@ h3,
 h4 {
     font-family: var(--title-font);
     margin: 0;
+}
+
+.hero h1 {
+    font-family: "Expuestas", var(--title-font);
+    text-transform: uppercase;
+}
+
+h2,
+h3,
+h4 {
+    font-family: "Urbana", var(--title-font);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
 }
 
 h1,
@@ -170,7 +187,7 @@ li {
 
 .hero-cards {
     display: grid;
-    gap: 1rem;
+    gap: 0.5rem;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
@@ -187,6 +204,10 @@ li {
     font-size: clamp(1.4rem, 2.2vw, 1.9rem);
 }
 
+#proposito h2 {
+    letter-spacing: 0.01em;
+}
+
 .section {
     margin-top: 1.2rem;
     display: grid;
@@ -195,7 +216,7 @@ li {
 
 /* Títulos verdes (Metodología, Enfoque, Objetivos, etc.) al mismo tamaño */
 .section > h2 {
-    font-size: clamp(1.9rem, 2.6vw, 2.3rem);
+    font-size: clamp(2rem, 2.8vw, 2.45rem);
     line-height: 1.05;
 }
 
@@ -220,12 +241,12 @@ li {
 
 .grid article h3,
 .callout h3 {
-    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    font-size: clamp(1.35rem, 2.1vw, 1.8rem);
 }
 
 .grid article h4 {
     color: var(--secondary-color);
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     margin-top: 0.5rem;
 }
 
@@ -239,7 +260,7 @@ li {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 56px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -250,8 +271,8 @@ li {
     backdrop-filter: blur(6px) saturate(0.98);
     border-top: 1px solid rgba(255,255,255,0.02);
     color: rgba(255,255,255,0.82);
-    font-size: 0.95rem;
-    padding: 0 1rem;
+    font-size: 0.84rem;
+    padding: 0 0.55rem;
     box-shadow: 0 -6px 18px rgba(0,0,0,0.32);
 }
 
@@ -259,10 +280,10 @@ li {
 
 .site-footer-inner {
     width: 100%;
-    max-width: 1200px;
+    max-width: 960px;
     display: flex;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 0.4rem;
     align-items: center;
     font-family: var(--text-font);
 }
@@ -279,8 +300,8 @@ body.no-footer .site-footer { display: none !important; }
 }
 
 @media (max-width: 700px) {
-    .site-footer { height: 64px; font-size: 0.95rem; }
-    .site-footer-inner { padding: 0 0.6rem; gap: 0.5rem; }
+    .site-footer { height: 46px; font-size: 0.86rem; }
+    .site-footer-inner { padding: 0 0.42rem; gap: 0.35rem; }
     .site-footer::before { width: 56px; height: 5px; }
 }
 
