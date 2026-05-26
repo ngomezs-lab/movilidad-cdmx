@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movilidad CDMX — Galería</title>
+    <meta name="description" content="Galería interactiva de identidad visual y piezas del proyecto Movilidad CDMX.">
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <link rel="stylesheet" href="https://use.typekit.net/wou8phv.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <style>
+        :root {
+            --gallery-panel: rgba(8, 10, 14, 0.7);
+            --gallery-border: rgba(255, 255, 255, 0.12);
+            --gallery-glow: rgba(195, 250, 44, 0.12);
+        }
+
+        body {
+            background-image: url("../img/carteles4.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.64)),
+                radial-gradient(circle at top left, rgba(255, 35, 122, 0.14), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(195, 250, 44, 0.12), transparent 26%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .identity-main {
+            position: relative;
+            z-index: 2;
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .identity-hero {
+            display: grid;
+            gap: 0.95rem;
+            background: linear-gradient(180deg, rgba(10, 12, 18, 0.72), rgba(10, 12, 18, 0.5));
+            border: 1px solid var(--gallery-border);
+            border-radius: 24px;
+            padding: 1.4rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 36px var(--gallery-glow);
+            backdrop-filter: blur(14px) saturate(1.05);
+        }
+
+        .identity-hero .eyebrow {
+            color: var(--accent-color);
+        }
+
+        .identity-hero h1 {
+            font-family: "Expuestas", var(--title-font);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: clamp(2.3rem, 5vw, 4.6rem);
+            line-height: 0.95;
+        }
+
+        .identity-hero p {
+            max-width: 78ch;
+            color: rgba(252, 254, 255, 0.88);
+        }
+
+        .gallery-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            align-items: center;
+            background: rgba(8, 10, 14, 0.48);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 0.8rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .gallery-toolbar .label {
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.7rem;
+            margin-right: 0.3rem;
+        }
+
+        .filter-btn {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(12, 15, 21, 0.66);
+            color: var(--secondary-color);
+            border-radius: 999px;
+            padding: 0.55rem 0.9rem;
+            font: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            font-size: 0.74rem;
+            cursor: pointer;
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn:focus-visible,
+        .filter-btn.is-active {
+            transform: translateY(-1px);
+            color: var(--title-color);
+            background: rgba(195, 250, 44, 0.08);
+            border-color: rgba(195, 250, 44, 0.5);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            background: rgba(8, 10, 14, 0.62);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22);
+            cursor: zoom-in;
+            isolation: isolate;
+        }
+
+        .gallery-item::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.58));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            transition: transform 320ms ease, filter 320ms ease;
+            filter: saturate(1.05) contrast(1.05);
+        }
+
+        .gallery-item:hover img,
+        .gallery-item:focus-visible img {
+            transform: scale(1.05);
+            filter: saturate(1.1) contrast(1.08) brightness(1.02);
+        }
+
+        .gallery-item figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 0.8rem 0.85rem 0.85rem;
+            color: var(--secondary-color);
+            display: grid;
+            gap: 0.2rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+        }
+
+        .gallery-item figcaption strong {
+            color: var(--title-color);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            font-size: 0.82rem;
+        }
+
+        .gallery-item figcaption span {
+            font-size: 0.76rem;
+            opacity: 0.86;
+        }
+
+        .identity-note {
+            color: rgba(252, 254, 255, 0.78);
+            font-size: 0.92rem;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(2, 4, 7, 0.84);
+            backdrop-filter: blur(14px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 240ms ease;
+            z-index: 120;
+            padding: 1.25rem;
+        }
+
+        .lightbox.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-panel {
+            width: min(1100px, 100%);
+            background: linear-gradient(180deg, rgba(12, 15, 21, 0.92), rgba(8, 10, 14, 0.86));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            box-shadow: 0 34px 80px rgba(0, 0, 0, 0.48), 0 0 36px rgba(195, 250, 44, 0.08);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+        }
+
+        .lightbox-media {
+            background: #050608;
+            min-height: 58vh;
+        }
+
+        .lightbox-media img {
+            width: 100%;
+            height: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            display: block;
+            background: #050608;
+        }
+
+        .lightbox-info {
+            display: grid;
+            align-content: start;
+            gap: 0.9rem;
+            padding: 1.3rem;
+        }
+
+        .lightbox-info h2 {
+            font-family: "Urbana", var(--title-font);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: clamp(1.3rem, 2vw, 2rem);
+            color: var(--title-color);
+        }
+
+        .lightbox-info p {
+            color: rgba(252, 254, 255, 0.84);
+        }
+
+        .lightbox-meta {
+            display: grid;
+            gap: 0.45rem;
+            color: rgba(252, 254, 255, 0.72);
+            font-size: 0.88rem;
+        }
+
+        .lightbox-close {
+            justify-self: start;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(195, 250, 44, 0.08);
+            color: var(--secondary-color);
+            border-radius: 999px;
+            padding: 0.6rem 0.9rem;
+            cursor: pointer;
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus-visible {
+            transform: translateY(-1px);
+            border-color: rgba(195, 250, 44, 0.48);
+            background: rgba(195, 250, 44, 0.14);
+        }
+
+        @media (max-width: 900px) {
+            .lightbox-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-media {
+                min-height: 42vh;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .identity-main {
+                padding: 1.2rem 1rem 3.5rem;
+            }
+
+            .identity-hero,
+            .gallery-toolbar {
+                border-radius: 18px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body class="no-footer">
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Navegación principal">
+            <a href="./" class="logo" title="Ir a documentación">Movilidad CDMX</a>
+            <ul>
+                <li><a href="experiencia.html?autoplay=1">Experiencia</a></li>
+                <li><a href="identidad.html">Identidad</a></li>
+                <li class="nav-intro">
+                    <button class="nav-trigger" aria-haspopup="true" aria-expanded="false">Introducción</button>
+                    <ul class="subnav" role="menu" aria-label="Secciones de introducción">
+                        <li><a role="menuitem" href="index.html#introduccion">Introducción</a></li>
+                        <li><a role="menuitem" href="index.html#objetivos">Objetivos</a></li>
+                        <li><a role="menuitem" href="index.html#enfoque">Enfoque</a></li>
+                        <li><a role="menuitem" href="index.html#metodologia">Metodología</a></li>
+                        <li><a role="menuitem" href="index.html#problema">Problema</a></li>
+                        <li><a role="menuitem" href="index.html#proposito">Propósito</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="identity-main">
+        <section class="identity-hero">
+            <p class="eyebrow">Galería visual</p>
+            <h1>Galería del proyecto</h1>
+            <p>Esta sección reúne las piezas visuales, pruebas gráficas, murales, aplicaciones y retratos conceptuales que construyen el universo de <em>Movilidad CDMX</em>. La galería está pensada para que cada pieza se sienta parte de una misma narrativa urbana: contraste alto, atmósfera nocturna, neón sutil y una lectura limpia para explorar cada diseño.</p>
+            <p class="identity-note">Haz clic en cualquier imagen para verla ampliada. Usa los filtros para moverte entre aplicaciones, carteles, testimonios, muros y piezas especiales.</p>
+        </section>
+
+        <section class="gallery-toolbar" aria-label="Filtros de galería">
+            <span class="label">Filtrar</span>
+            <button class="filter-btn is-active" type="button" data-filter="all">Todo</button>
+            <button class="filter-btn" type="button" data-filter="aplicaciones">Aplicaciones</button>
+            <button class="filter-btn" type="button" data-filter="carteles">Carteles</button>
+            <button class="filter-btn" type="button" data-filter="muro">Muro</button>
+            <button class="filter-btn" type="button" data-filter="testimonios">Testimonios</button>
+            <button class="filter-btn" type="button" data-filter="especiales">Especiales</button>
+        </section>
+
+        <section class="gallery-grid" id="galleryGrid" aria-label="Galería interactiva de identidad"></section>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+        <div class="lightbox-panel">
+            <div class="lightbox-media">
+                <img id="lightboxImage" alt="">
+            </div>
+            <div class="lightbox-info">
+                <button class="lightbox-close" id="lightboxClose" type="button">Cerrar</button>
+                <h2 id="lightboxTitle"></h2>
+                <p id="lightboxDescription"></p>
+                <div class="lightbox-meta" id="lightboxMeta"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const galleryItems = [
+                { src: '../img/APLICACIONES/apli1.png', title: 'Aplicación 01', category: 'aplicaciones', description: 'Primera aplicación visual del sistema: composición limpia, contraste alto y lenguaje urbano.', meta: 'Serie / Aplicaciones' },
+                { src: '../img/APLICACIONES/apli2.png', title: 'Aplicación 02', category: 'aplicaciones', description: 'Variación que refuerza el tono editorial y la lectura del proyecto en entorno digital.', meta: 'Serie / Aplicaciones' },
+                { src: '../img/APLICACIONES/apli3.png', title: 'Aplicación 03', category: 'aplicaciones', description: 'Exploración de jerarquías y presencia gráfica para piezas de identidad.', meta: 'Serie / Aplicaciones' },
+                { src: '../img/APLICACIONES/1.png', title: 'Pieza 01', category: 'especiales', description: 'Variación experimental para reforzar el carácter inmersivo de la identidad.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/2.png', title: 'Pieza 02', category: 'especiales', description: 'Composición de prueba con enfoque en ritmo visual y contraste.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/3.png', title: 'Pieza 03', category: 'especiales', description: 'Otra lectura de la misma familia visual con tratamiento de portada.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/4.png', title: 'Pieza 04', category: 'especiales', description: 'Exploración tipográfica y atmósfera de cartel.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/5.png', title: 'Pieza 05', category: 'especiales', description: 'Prueba visual para mantener la identidad consistente en distintos formatos.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/6.png', title: 'Pieza 06', category: 'especiales', description: 'Composición con presencia de color neón y textura urbana.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/7.png', title: 'Pieza 07', category: 'especiales', description: 'Sistema de imagen para continuidad entre pantallas y piezas impresas.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/8.png', title: 'Pieza 08', category: 'especiales', description: 'Variación centrada en ritmo, jerarquía y contraste visual.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/9.png', title: 'Pieza 09', category: 'especiales', description: 'Otra muestra de la familia visual trabajada durante el proceso de diseño.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/10.png', title: 'Pieza 10', category: 'especiales', description: 'Cierre de la serie de exploraciones visuales del proyecto.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/cartel1.png', title: 'Cartel 01', category: 'carteles', description: 'Cartel con tratamiento editorial para comunicar el proyecto en espacios públicos.', meta: 'Serie / Carteles' },
+                { src: '../img/APLICACIONES/cartel2.png', title: 'Cartel 02', category: 'carteles', description: 'Segunda versión del cartel, pensada para reforzar la identidad general.', meta: 'Serie / Carteles' },
+                { src: '../img/APLICACIONES/cartel3.png', title: 'Cartel 03', category: 'carteles', description: 'Variación con composición más directa para lectura rápida.', meta: 'Serie / Carteles' },
+                { src: '../img/APLICACIONES/espec1.png', title: 'Especial 01', category: 'especiales', description: 'Pieza especial dentro del ecosistema visual, con enfoque experimental.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/espec2.png', title: 'Especial 02', category: 'especiales', description: 'Segunda pieza especial, conservando el lenguaje oscuro/neón.', meta: 'Serie / Especiales' },
+                { src: '../img/APLICACIONES/muro.png', title: 'Muro 01', category: 'muro', description: 'Propuesta mural que lleva la identidad hacia una escala más inmersiva.', meta: 'Serie / Muro' },
+                { src: '../img/APLICACIONES/muro3.png', title: 'Muro 02', category: 'muro', description: 'Variación del mural para reforzar el impacto visual en gran formato.', meta: 'Serie / Muro' },
+                { src: '../img/APLICACIONES/muro4.png', title: 'Muro 03', category: 'muro', description: 'Exploración final para mantener continuidad entre gráfica y atmósfera urbana.', meta: 'Serie / Muro' },
+                { src: '../img/APLICACIONES/testi1.png', title: 'Testimonio 01', category: 'testimonios', description: 'Primera pieza testimonial, con enfoque humano y lectura clara.', meta: 'Serie / Testimonios' },
+                { src: '../img/APLICACIONES/testi2.png', title: 'Testimonio 02', category: 'testimonios', description: 'Segunda pieza testimonial para dar continuidad a la narrativa.', meta: 'Serie / Testimonios' },
+                { src: '../img/APLICACIONES/testi3.png', title: 'Testimonio 03', category: 'testimonios', description: 'Tercera pieza de la serie testimonial, más cercana al lenguaje de campaña.', meta: 'Serie / Testimonios' },
+                { src: '../img/APLICACIONES/testi4.JPG', title: 'Testimonio 04', category: 'testimonios', description: 'Versión fotográfica del bloque testimonial, pensada para el impacto emocional.', meta: 'Serie / Testimonios' },
+                { src: '../img/APLICACIONES/testi5.JPG', title: 'Testimonio 05', category: 'testimonios', description: 'Otra variación testimonial para cerrar el conjunto de piezas.', meta: 'Serie / Testimonios' },
+                { src: '../img/APLICACIONES/testi 6.jpg', title: 'Testimonio 06', category: 'testimonios', description: 'Última pieza testimonial con el mismo tono urbano y sobrio.', meta: 'Serie / Testimonios' }
+            ];
+
+            const grid = document.getElementById('galleryGrid');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxDescription = document.getElementById('lightboxDescription');
+            const lightboxMeta = document.getElementById('lightboxMeta');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+            let activeFilter = 'all';
+
+            function openLightbox(item) {
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                lightboxImage.src = item.src;
+                lightboxImage.alt = item.title;
+                lightboxTitle.textContent = item.title;
+                lightboxDescription.textContent = item.description;
+                lightboxMeta.innerHTML = `<span>${item.meta}</span><span>${item.category}</span>`;
+                lightboxClose.focus();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                lightboxImage.src = '';
+            }
+
+            function renderGrid() {
+                grid.innerHTML = '';
+                galleryItems
+                    .filter((item) => activeFilter === 'all' || item.category === activeFilter)
+                    .forEach((item) => {
+                        const figure = document.createElement('figure');
+                        figure.className = 'gallery-item';
+                        figure.tabIndex = 0;
+                        figure.dataset.category = item.category;
+                        figure.innerHTML = `
+                            <img src="${item.src}" alt="${item.title}">
+                            <figcaption>
+                                <strong>${item.title}</strong>
+                                <span>${item.category}</span>
+                            </figcaption>
+                        `;
+                        figure.addEventListener('click', () => openLightbox(item));
+                        figure.addEventListener('keydown', (event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                openLightbox(item);
+                            }
+                        });
+                        grid.appendChild(figure);
+                    });
+            }
+
+            filterButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    activeFilter = button.dataset.filter;
+                    filterButtons.forEach((candidate) => candidate.classList.remove('is-active'));
+                    button.classList.add('is-active');
+                    renderGrid();
+                });
+            });
+
+            lightbox.addEventListener('click', (event) => {
+                if (event.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                    closeLightbox();
+                }
+            });
+
+            renderGrid();
+        })();
+    </script>
+</body>
+
+</html>
