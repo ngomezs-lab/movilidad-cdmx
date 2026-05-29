@@ -239,29 +239,20 @@
             position: fixed;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 8px;
+            bottom: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 0.55rem;
+            gap: 0.4rem;
             z-index: 60;
             pointer-events: auto;
         }
 
-        .cta-button {
-            background: var(--title-color);
-            color: #08100e;
-            padding: 0.5rem 0.9rem;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .cta-button-secondary {
-            background: rgba(8, 10, 14, 0.66);
-            color: var(--secondary-color);
-            border: 1px solid rgba(255, 255, 255, 0.16);
+        .cta-button,
+        .cta-button-secondary,
+        .start-button {
+            min-width: 13.5rem;
         }
 
         @keyframes pulse {
@@ -346,7 +337,7 @@
                     <span class="experience-prompt">Pasa el mouse aquí</span>
                     <h2>Iniciar experiencia</h2>
                     <p>Frases al frente. Testimonios al interactuar.</p>
-                    <button class="start-button" id="startExperience" type="button">Iniciar experiencia</button>
+                    <button class="start-button ui-action-button ui-action-button-primary" id="startExperience" type="button">Iniciar experiencia</button>
                 </div>
             </div>
         </section>
@@ -361,8 +352,8 @@
         </div>
 
         <div class="experience-cta">
-            <a href="proxima-estacion.html" class="cta-button">Continuar →</a>
-            <a href="identidad.html?filter=testimonios" class="cta-button cta-button-secondary">Ver testimonios en galería</a>
+            <a href="proxima-estacion.html" class="cta-button ui-action-button ui-action-button-primary">Continuar →</a>
+            <a href="identidad.html?filter=testimonios" class="cta-button cta-button-secondary ui-action-button ui-action-button-secondary">Ver testimonios en galería</a>
         </div>
     </main>
 

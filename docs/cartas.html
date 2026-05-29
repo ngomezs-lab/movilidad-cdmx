@@ -36,28 +36,7 @@
     }
 
     .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.75rem 1.1rem;
-      border-radius: 10px;
-      font-weight: 700;
-      text-decoration: none;
-      font-family: var(--text-font);
-      border: 1px solid transparent;
-    }
-
-    .button-play {
-      background: var(--title-color);
-      color: #08100e;
-      border: 0;
-      cursor: pointer;
-    }
-
-    .button-home {
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--secondary-color);
-      border-color: rgba(255, 255, 255, 0.18);
+      margin: 0;
     }
 
     .hidden {
@@ -193,24 +172,6 @@
       display: block;
       width: fit-content;
       margin: 2.5rem auto 0;
-      padding: 1rem 2rem;
-      background: var(--title-color);
-      color: #08100e;
-      border-radius: 10px;
-      border: none;
-      font-weight: 900;
-      cursor: pointer;
-      font-family: var(--text-font);
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(195, 250, 44, 0.5);
-    }
-
-    .end-game-btn-cards:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(195, 250, 44, 0.6);
     }
 
     .page-flip-container {
@@ -301,20 +262,7 @@
     }
 
     .final-btn {
-      background: var(--title-color);
-      color: #08100e;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      border: 0;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: var(--text-font);
       transition: transform 0.2s, background 0.2s;
-    }
-
-    .final-btn:hover {
-      transform: scale(1.05);
-      background: rgba(195, 250, 44, 0.9);
     }
   </style>
 </head>
@@ -326,13 +274,13 @@
   <div class="wrap">
     <h1>Cartas Sin Filtros</h1>
     <div class="top-actions">
-      <button id="start-game" class="button button-play" type="button">Jugar</button>
-      <a class="button button-home" href="index.html">Home</a>
+      <button id="start-game" class="button button-play ui-action-button ui-action-button-primary" type="button">Jugar</button>
+      <a class="button button-home ui-action-button ui-action-button-secondary" href="index.html">Home</a>
     </div>
 
     <section id="cards-section" class="hidden" aria-label="Cartas aleatorias">
       <div id="cards-grid" class="cards-grid"></div>
-      <button id="end-game-btn-cards" class="end-game-btn-cards">Terminar Juego</button>
+      <button id="end-game-btn-cards" class="end-game-btn-cards ui-action-button ui-action-button-primary">Terminar Juego</button>
     </section>
 
     <div class="scroll-hint" id="scroll-hint"></div>
@@ -349,8 +297,8 @@
   </div>
 
   <div class="final-controls" id="final-controls">
-    <button class="final-btn" onclick="location.href='index.html'">Volver al Inicio</button>
-    <button class="final-btn" onclick="location.reload()">Jugar de Nuevo</button>
+    <button class="final-btn ui-action-button ui-action-button-secondary" onclick="location.href='index.html'">Volver al Inicio</button>
+    <button class="final-btn ui-action-button ui-action-button-secondary" onclick="location.reload()">Jugar de Nuevo</button>
   </div>
 
   <script>

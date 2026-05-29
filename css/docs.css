@@ -258,6 +258,56 @@ p {
     margin: 0;
 }
 
+.ui-action-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    min-height: 48px !important;
+    padding: 0.8rem 1.15rem !important;
+    border-radius: 999px !important;
+    border: 1px solid transparent !important;
+    font-family: var(--text-font) !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease !important;
+}
+
+.ui-action-button:hover,
+.ui-action-button:focus-visible {
+    transform: translateY(-1px) !important;
+}
+
+.ui-action-button-primary {
+    background: var(--title-color) !important;
+    color: #08100e !important;
+    box-shadow: 0 14px 30px rgba(195, 250, 44, 0.14) !important;
+}
+
+.ui-action-button-primary:hover,
+.ui-action-button-primary:focus-visible {
+    background: #dafc4f !important;
+    box-shadow: 0 18px 36px rgba(195, 250, 44, 0.2) !important;
+}
+
+.ui-action-button-secondary {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: var(--secondary-color) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow: none !important;
+}
+
+.ui-action-button-secondary:hover,
+.ui-action-button-secondary:focus-visible {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.26) !important;
+}
+
 ul,
 ol {
     margin: 0;

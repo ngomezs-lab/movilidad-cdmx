@@ -87,36 +87,13 @@
       margin: 0;
     }
 
-    .next {
-      background: var(--title-color);
-      color: #08100e;
-      padding: 0.75rem 1.1rem;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      border: 0;
-      cursor: pointer;
-      font-family: var(--text-font);
-    }
-
+    .next,
     .home-link {
-      display: inline-block;
       margin-left: 0.75rem;
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--secondary-color);
-      padding: 0.75rem 1.1rem;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-
-    .home-link:hover {
-      background: rgba(255, 255, 255, 0.18);
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     .cards-grid {
@@ -184,14 +161,14 @@
     <div class="copy-section">
       <p class="copy">Sin Filtros es una estación para jugar, reír, cuestionar y hablar desde otro lugar. Lo que entre amigos, muchas veces no se dice … hasta que alguien decide mirar estas frases distinto y reflexionar.</p>
     </div>
-    <button id="start-game" class="next" type="button">Jugar</button>
-    <a class="home-link" href="index.html">Home</a>
-    <button id="end-game" class="home-link hidden" type="button">Terminar juego</button>
+    <button id="start-game" class="next ui-action-button ui-action-button-primary" type="button">Jugar</button>
+    <a class="home-link ui-action-button ui-action-button-secondary" href="index.html">Home</a>
+    <button id="end-game" class="home-link hidden ui-action-button ui-action-button-secondary" type="button">Terminar juego</button>
 
     <section id="cards-section" class="hidden" aria-label="Cartas aleatorias">
       <div id="cards-grid" class="cards-grid"></div>
       <div class="download-wrap" style="margin-top:1.25rem;">
-        <a id="download-template" class="next" href="../img/cartasexpuestos.pdf" download>Descargar plantilla</a>
+        <a id="download-template" class="next ui-action-button ui-action-button-primary" href="../img/cartasexpuestos.pdf" download>Descargar plantilla</a>
       </div>
     </section>
   </div>
