@@ -15,12 +15,6 @@
       padding: 2rem 1rem;
     }
 
-    .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
     h1 {
       font-size: clamp(2rem, 4vw, 3rem);
       color: var(--title-color);
@@ -35,14 +29,6 @@
       margin-bottom: 1.25rem;
     }
 
-    .button {
-      margin: 0;
-    }
-
-    .hidden {
-      display: none;
-    }
-
     #cards-section {
       display: flex;
       flex-direction: column;
@@ -51,63 +37,21 @@
     }
 
     .cards-grid {
-      width: 100%;
       margin-top: 1.5rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 0.75rem;
     }
 
-    .card {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      perspective: 900px;
-      border: 0;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.55s ease;
-    }
-
-    .card.is-flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-
     .card-face {
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      overflow: hidden;
-      backface-visibility: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
       background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .card-face img {
-      width: 100%;
-      height: 100%;
       object-fit: contain;
-      display: block;
-    }
-
-    .card-front img,
-    .card-back img {
-      padding: 0.35rem;
-      box-sizing: border-box;
     }
 
     .card-back {
-      transform: rotateY(180deg);
       background: #ffffff;
     }
 
@@ -115,154 +59,10 @@
       filter: contrast(1.12) brightness(1.05);
     }
 
-    .interaction-counter {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      font-size: 0.9rem;
-      color: var(--title-color);
-      opacity: 0.7;
-      z-index: 50;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .scroll-hint {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      opacity: 0;
-      z-index: 50;
-      pointer-events: none;
-      display: none;
-    }
-
-    .end-game-btn {
-      background: var(--title-color);
-      color: #08100e;
-      padding: 0.75rem 1.5rem;
-      border-radius: 10px;
-      border: 0;
-      font-weight: 800;
-      cursor: pointer;
-      font-family: var(--text-font);
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: opacity 0.4s ease, transform 0.2s ease;
-      box-shadow: 0 0 20px rgba(195, 250, 44, 0.3);
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    .end-game-btn.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .end-game-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(195, 250, 44, 0.6);
-    }
-
     .end-game-btn-cards {
       display: block;
       width: fit-content;
       margin: 2.5rem auto 0;
-    }
-
-    .page-flip-container {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 999;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .page-flip-container.active {
-      pointer-events: auto;
-      opacity: 1;
-    }
-
-    .page-flip {
-      position: absolute;
-      inset: 0;
-      background: #000;
-      perspective: 1200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .flip-page {
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      animation: flipPageDown 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-    }
-
-    @keyframes flipPageDown {
-      0% {
-        transform: rotateX(0deg) translateZ(0);
-        opacity: 1;
-      }
-      100% {
-        transform: rotateX(90deg) translateZ(-400px);
-        opacity: 0;
-      }
-    }
-
-    .final-screen {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 998;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.8s ease 0.4s;
-    }
-
-    .final-screen.active {
-      opacity: 1;
-    }
-
-    .final-screen video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .final-controls {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
-      display: flex;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeInDelay 0.8s ease 2s forwards;
-    }
-
-    @keyframes fadeInDelay {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .final-btn {
-      transition: transform 0.2s, background 0.2s;
     }
   </style>
 </head>

@@ -182,27 +182,9 @@
             max-width: 18ch;
         }
 
-        .start-button {
+        .experience-overlay .ui-action-button {
             pointer-events: auto;
-            border: 0;
-            border-radius: 999px;
-            padding: 0.8rem 1.1rem;
-            background: var(--title-color);
-            color: #08100e;
-            font: inherit;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            box-shadow: 0 14px 30px rgba(195, 250, 44, 0.15);
-            transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-            cursor: pointer;
-        }
-
-        .start-button:hover,
-        .start-button:focus-visible {
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 0 18px 38px rgba(195, 250, 44, 0.22);
-            background: #dafc4f;
+            min-width: 13.5rem;
         }
 
         .experience-caption {
@@ -249,9 +231,7 @@
             pointer-events: auto;
         }
 
-        .cta-button,
-        .cta-button-secondary,
-        .start-button {
+        .experience-cta .ui-action-button {
             min-width: 13.5rem;
         }
 
@@ -337,7 +317,7 @@
                     <span class="experience-prompt">Pasa el mouse aquí</span>
                     <h2>Iniciar experiencia</h2>
                     <p>Frases al frente. Testimonios al interactuar.</p>
-                    <button class="start-button ui-action-button ui-action-button-primary" id="startExperience" type="button">Iniciar experiencia</button>
+                    <button class="ui-action-button ui-action-button-primary" id="startExperience" type="button">Iniciar experiencia</button>
                 </div>
             </div>
         </section>
@@ -352,8 +332,8 @@
         </div>
 
         <div class="experience-cta">
-            <a href="proxima-estacion.html" class="cta-button ui-action-button ui-action-button-primary">Continuar →</a>
-            <a href="identidad.html?filter=testimonios" class="cta-button cta-button-secondary ui-action-button ui-action-button-secondary">Ver testimonios en galería</a>
+            <a href="proxima-estacion.html" class="ui-action-button ui-action-button-primary">Continuar →</a>
+            <a href="identidad.html?filter=testimonios" class="ui-action-button ui-action-button-secondary">Ver testimonios en galería</a>
         </div>
     </main>
 
