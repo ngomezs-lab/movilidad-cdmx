@@ -395,12 +395,12 @@
                 { src: '../img/mk/mk6.png', title: 'Mockup 06', category: 'mockups', description: 'Otra adaptación de la identidad para revisar proporción y contraste.', meta: 'Mockup / General' },
                 { src: '../img/mk/mkcartel3.png', title: 'Mockup Cartel 03', category: 'mockups', description: 'Variación adicional del cartel en entorno real.', meta: 'Mockup / Cartel' },
                 { src: '../img/mk/mockup%20billboard%202.jpg', title: 'Mockup Billboard', category: 'mockups', description: 'Aplicación de gran formato para comprobar visibilidad a distancia.', meta: 'Mockup / Billboard' },
-                { src: '../img/APLICACIONES/testi1.png', title: 'Testimonio 01', category: 'testimonios', description: 'Primera pieza testimonial, con enfoque humano y lectura clara.', meta: 'Serie / Testimonios' },
-                { src: '../img/APLICACIONES/testi2.png', title: 'Testimonio 02', category: 'testimonios', description: 'Segunda pieza testimonial para dar continuidad a la narrativa.', meta: 'Serie / Testimonios' },
-                { src: '../img/APLICACIONES/testi3.png', title: 'Testimonio 03', category: 'testimonios', description: 'Tercera pieza de la serie testimonial, más cercana al lenguaje de campaña.', meta: 'Serie / Testimonios' },
-                { src: '../img/APLICACIONES/testi4.JPG', title: 'Testimonio 04', category: 'testimonios', description: 'Versión fotográfica del bloque testimonial, pensada para el impacto emocional.', meta: 'Serie / Testimonios' },
-                { src: '../img/APLICACIONES/testi5.JPG', title: 'Testimonio 05', category: 'testimonios', description: 'Otra variación testimonial para cerrar el conjunto de piezas.', meta: 'Serie / Testimonios' },
-                { src: '../img/APLICACIONES/testi 6.jpg', title: 'Testimonio 06', category: 'testimonios', description: 'Última pieza testimonial con el mismo tono urbano y sobrio.', meta: 'Serie / Testimonios' }
+                { id: 'testimonio-01', src: '../img/APLICACIONES/testi1.png', title: 'Testimonio 01', category: 'testimonios', description: 'Primera pieza testimonial, con enfoque humano y lectura clara.', meta: 'Serie / Testimonios' },
+                { id: 'testimonio-02', src: '../img/APLICACIONES/testi2.png', title: 'Testimonio 02', category: 'testimonios', description: 'Segunda pieza testimonial para dar continuidad a la narrativa.', meta: 'Serie / Testimonios' },
+                { id: 'testimonio-03', src: '../img/APLICACIONES/testi3.png', title: 'Testimonio 03', category: 'testimonios', description: 'Tercera pieza de la serie testimonial, más cercana al lenguaje de campaña.', meta: 'Serie / Testimonios' },
+                { id: 'testimonio-04', src: '../img/APLICACIONES/testi4.JPG', title: 'Testimonio 04', category: 'testimonios', description: 'Versión fotográfica del bloque testimonial, pensada para el impacto emocional.', meta: 'Serie / Testimonios' },
+                { id: 'testimonio-05', src: '../img/APLICACIONES/testi5.JPG', title: 'Testimonio 05', category: 'testimonios', description: 'Otra variación testimonial para cerrar el conjunto de piezas.', meta: 'Serie / Testimonios' },
+                { id: 'testimonio-06', src: '../img/APLICACIONES/testi 6.jpg', title: 'Testimonio 06', category: 'testimonios', description: 'Última pieza testimonial con el mismo tono urbano y sobrio.', meta: 'Serie / Testimonios' }
             ];
 
             const grid = document.getElementById('galleryGrid');
@@ -412,6 +412,8 @@
             const lightboxClose = document.getElementById('lightboxClose');
             const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
             let activeFilter = 'all';
+            const requestedItemId = new URLSearchParams(window.location.search).get('item');
+            let requestedItemToOpen = null;
 
             function openLightbox(item) {
                 lightbox.classList.add('is-open');
@@ -455,6 +457,14 @@
                         });
                         grid.appendChild(figure);
                     });
+
+                if (requestedItemToOpen) {
+                    const itemToOpen = galleryItems.find((item) => item.id === requestedItemToOpen);
+                    requestedItemToOpen = null;
+                    if (itemToOpen) {
+                        openLightbox(itemToOpen);
+                    }
+                }
             }
 
             filterButtons.forEach((button) => {
@@ -478,6 +488,19 @@
                     closeLightbox();
                 }
             });
+
+            if (requestedItemId) {
+                const itemToFocus = galleryItems.find((item) => item.id === requestedItemId);
+                if (itemToFocus) {
+                    activeFilter = itemToFocus.category;
+                    requestedItemToOpen = requestedItemId;
+                    filterButtons.forEach((candidate) => candidate.classList.remove('is-active'));
+                    const matchingFilterButton = filterButtons.find((button) => button.dataset.filter === activeFilter);
+                    if (matchingFilterButton) {
+                        matchingFilterButton.classList.add('is-active');
+                    }
+                }
+            }
 
             renderGrid();
         })();

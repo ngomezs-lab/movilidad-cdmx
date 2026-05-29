@@ -239,7 +239,7 @@
             position: fixed;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 32px;
+            bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -249,13 +249,6 @@
             pointer-events: auto;
         }
 
-        .experience-cta p {
-            color: var(--secondary-color);
-            font-size: 1.02rem;
-            margin: 0;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-        }
-
         .cta-button {
             background: var(--title-color);
             color: #08100e;
@@ -263,6 +256,12 @@
             border-radius: 8px;
             font-weight: 700;
             text-decoration: none;
+        }
+
+        .cta-button-secondary {
+            background: rgba(8, 10, 14, 0.66);
+            color: var(--secondary-color);
+            border: 1px solid rgba(255, 255, 255, 0.16);
         }
 
         @keyframes pulse {
@@ -362,8 +361,8 @@
         </div>
 
         <div class="experience-cta">
-            <p>¿Listo para la siguiente estación?</p>
             <a href="proxima-estacion.html" class="cta-button">Continuar →</a>
+            <a href="identidad.html?filter=testimonios" class="cta-button cta-button-secondary">Ver testimonios en galería</a>
         </div>
     </main>
 
