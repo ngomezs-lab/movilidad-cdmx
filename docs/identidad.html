@@ -225,6 +225,47 @@
             min-height: 58vh;
         }
 
+        .lightbox-media {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.48);
+            color: var(--title-color);
+            border: 1px solid rgba(255,255,255,0.06);
+            width: 56px;
+            height: 56px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            cursor: pointer;
+            z-index: 40;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+            transition: transform 180ms ease, background 180ms ease, opacity 160ms ease;
+            opacity: 0.95;
+        }
+
+        .lightbox-prev { left: 8%; }
+        .lightbox-next { right: 8%; }
+
+        .lightbox-nav:hover,
+        .lightbox-nav:focus {
+            transform: translateY(-50%) scale(1.06);
+            background: rgba(195, 250, 44, 0.12);
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            .lightbox-nav { width: 44px; height: 44px; font-size: 1rem; }
+        }
+
         .lightbox-media img {
             width: 100%;
             height: 100%;
@@ -353,7 +394,9 @@
     <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
         <div class="lightbox-panel">
             <div class="lightbox-media">
+                <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Anterior">←</button>
                 <img id="lightboxImage" alt="">
+                <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Siguiente">→</button>
             </div>
             <div class="lightbox-info">
                 <button class="lightbox-close" id="lightboxClose" type="button">Cerrar</button>
@@ -416,10 +459,22 @@
             const lightboxDescription = document.getElementById('lightboxDescription');
             const lightboxMeta = document.getElementById('lightboxMeta');
             const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
             const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
             let activeFilter = 'all';
             const requestedItemId = new URLSearchParams(window.location.search).get('item');
             let requestedItemToOpen = null;
+            // navigation state inside lightbox for the currently visible (filtered) set
+            let visibleIndices = [];
+            let currentVisiblePos = -1;
+
+            function buildVisibleIndices() {
+                visibleIndices = galleryItems
+                    .map((it, idx) => ({ it, idx }))
+                    .filter(({ it }) => activeFilter === 'all' || it.category === activeFilter)
+                    .map(({ idx }) => idx);
+            }
 
             function openLightbox(item) {
                 lightbox.classList.add('is-open');
@@ -444,6 +499,25 @@
                 lightboxClose.focus();
             }
 
+            function openLightboxByGlobalIndex(globalIndex) {
+                const item = galleryItems[globalIndex];
+                if (!item) return;
+                buildVisibleIndices();
+                currentVisiblePos = visibleIndices.indexOf(globalIndex);
+                if (currentVisiblePos === -1) {
+                    // if current item not in filtered set, reset filter context
+                    currentVisiblePos = 0;
+                }
+                openLightbox(item);
+            }
+
+            function showNext(delta) {
+                if (!visibleIndices.length) return;
+                currentVisiblePos = (currentVisiblePos + delta + visibleIndices.length) % visibleIndices.length;
+                const gi = visibleIndices[currentVisiblePos];
+                openLightbox(galleryItems[gi]);
+            }
+
             function closeLightbox() {
                 lightbox.classList.remove('is-open');
                 lightbox.setAttribute('aria-hidden', 'true');
@@ -452,43 +526,43 @@
 
             function renderGrid() {
                 grid.innerHTML = '';
-                galleryItems
-                    .filter((item) => activeFilter === 'all' || item.category === activeFilter)
-                    .forEach((item) => {
-                        // determine display title: for 'aplicaciones' show only the two-digit number
-                        let displayTitle = item.title;
-                            const numericCategories = new Set(['aplicaciones', 'carteles', 'juego', 'testimonios', 'especiales', 'mockups', 'muro']);
-                            if (numericCategories.has(item.category)) {
-                                const m = item.title.match(/(\d+)/);
-                                displayTitle = m ? String(m[1]).padStart(2, '0') : item.title;
-                            }
-                        const figure = document.createElement('figure');
-                        figure.className = 'gallery-item';
-                        figure.tabIndex = 0;
-                        figure.dataset.category = item.category;
-                            const categorySpan = numericCategories.has(item.category) ? '' : `<span>${item.category}</span>`;
-                        figure.innerHTML = `
+                // render using global indices so we can navigate within filtered sets
+                const numericCategories = new Set(['aplicaciones', 'carteles', 'juego', 'testimonios', 'especiales', 'mockups', 'muro']);
+                galleryItems.forEach((item, globalIdx) => {
+                    if (activeFilter !== 'all' && item.category !== activeFilter) return;
+                    let displayTitle = item.title;
+                    if (numericCategories.has(item.category)) {
+                        const m = item.title.match(/(\d+)/);
+                        displayTitle = m ? String(m[1]).padStart(2, '0') : item.title;
+                    }
+                    const figure = document.createElement('figure');
+                    figure.className = 'gallery-item';
+                    figure.tabIndex = 0;
+                    figure.dataset.category = item.category;
+                    figure.dataset.globalIdx = String(globalIdx);
+                    const categorySpan = numericCategories.has(item.category) ? '' : `<span>${item.category}</span>`;
+                    figure.innerHTML = `
                                 <img src="${item.src}" alt="${item.title}">
                                 <figcaption>
                                     <strong>${displayTitle}</strong>
                                     ${categorySpan}
                                 </figcaption>
                             `;
-                        figure.addEventListener('click', () => openLightbox(item));
-                        figure.addEventListener('keydown', (event) => {
-                            if (event.key === 'Enter' || event.key === ' ') {
-                                event.preventDefault();
-                                openLightbox(item);
-                            }
-                        });
-                        grid.appendChild(figure);
+                    figure.addEventListener('click', () => openLightboxByGlobalIndex(globalIdx));
+                    figure.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            openLightboxByGlobalIndex(globalIdx);
+                        }
                     });
+                    grid.appendChild(figure);
+                });
 
                 if (requestedItemToOpen) {
-                    const itemToOpen = galleryItems.find((item) => item.id === requestedItemToOpen);
+                    const idx = galleryItems.findIndex((item) => item.id === requestedItemToOpen);
                     requestedItemToOpen = null;
-                    if (itemToOpen) {
-                        openLightbox(itemToOpen);
+                    if (idx !== -1) {
+                        openLightboxByGlobalIndex(idx);
                     }
                 }
             }
@@ -509,9 +583,27 @@
             });
 
             lightboxClose.addEventListener('click', closeLightbox);
+            // prev/next buttons
+            if (lightboxPrev && lightboxNext) {
+                lightboxPrev.addEventListener('click', () => showNext(-1));
+                lightboxNext.addEventListener('click', () => showNext(1));
+            }
+
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                if (!lightbox.classList.contains('is-open')) return;
+                if (event.key === 'Escape') {
                     closeLightbox();
+                    return;
+                }
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    showNext(-1);
+                    return;
+                }
+                if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    showNext(1);
+                    return;
                 }
             });
 
