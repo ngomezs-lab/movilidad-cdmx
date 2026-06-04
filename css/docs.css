@@ -539,21 +539,60 @@ li {
 
 .hero-cards {
     display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+#introduccion .hero-cards {
+    align-items: start;
 }
 
 .card {
     background: rgba(9, 12, 18, 0.62);
     border: 1px solid var(--border-soft);
     border-radius: 14px;
-    padding: 1rem 1.1rem;
+    padding: 0.8rem 0.9rem;
     display: grid;
-    gap: 0.6rem;
+    gap: 0.4rem;
 }
 
-.card h2 {
-    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+#introduccion .hero-cards {
+    gap: 0.35rem;
+}
+
+#introduccion .card {
+    padding: 0.2rem 0.75rem 0.25rem;
+    gap: 0.1rem;
+    align-self: start;
+    height: auto;
+    min-height: 0;
+}
+
+/* Ensure introduction cards size to their content (override global card aspect-ratio/height) */
+#introduccion .hero-cards > .card {
+    aspect-ratio: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: block;
+    align-self: start;
+}
+
+/* Prevent any nested flip/card-inner rules from affecting these simple cards */
+#introduccion .hero-cards > .card .card-inner {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+}
+#introduccion .card h2 {
+    font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+    line-height: 1;
+    margin-bottom: 0.05rem;
+}
+
+#introduccion .card p {
+    padding: 0.5rem 0.75rem;
+    gap: 0.2rem;
 }
 
 #proposito h2 {
@@ -574,8 +613,8 @@ li {
 
 .grid {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.7rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .grid article,
@@ -583,17 +622,65 @@ li {
     background: rgba(9, 12, 18, 0.56);
     border: 1px solid var(--border-soft);
     border-radius: 14px;
-    padding: 1rem 1.1rem;
+    padding: 0.7rem 0.8rem;
 }
 
 .grid article {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.4rem;
 }
 
 .grid article h3,
 .callout h3 {
-    font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+}
+
+#objetivos .grid {
+    gap: 0.6rem;
+}
+
+#objetivos .grid article {
+    padding: 0.65rem 0.75rem;
+    gap: 0.35rem;
+}
+
+/* Make the first article (Objetivo principal) hug its content vertically */
+#objetivos .grid article:first-of-type {
+    padding: 0.45rem 0.75rem;
+    gap: 0.25rem;
+    align-self: start;
+    height: auto;
+    min-height: 0;
+}
+
+/* Make the first objective article a column so the image can fill leftover space */
+#objetivos .grid article:first-of-type {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Image inside the Objetivo principal: fill remaining vertical space without increasing card height */
+#objetivos .grid article:first-of-type .objetivo-inline {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 10px;
+    object-fit: cover;
+    flex: 1 1 auto;
+    max-height: 100%;
+}
+
+/* Style for the vertical image under Objetivo principal */
+
+#objetivos .grid article h3 {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+#enfoque .callout,
+#metodologia .callout,
+#objetivos .callout {
+    padding: 0.65rem 0.75rem;
+    gap: 0.5rem;
 }
 
 .grid article h4 {
