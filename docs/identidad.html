@@ -330,7 +330,7 @@
     <main class="identity-main">
         <section class="identity-hero">
             <p class="eyebrow">Galería visual</p>
-            <h1>Galería del proyecto</h1>
+            <h1>Galería<br>del proyecto</h1>
             <p>Esta sección reúne las piezas visuales, pruebas gráficas, murales, aplicaciones y retratos conceptuales que construyen el universo de <em>Movilidad CDMX</em>. La galería está pensada para que cada pieza se sienta parte de una misma narrativa urbana: contraste alto, atmósfera nocturna, neón sutil y una lectura limpia para explorar cada diseño.</p>
             <p class="identity-note">Haz clic en cualquier imagen para verla ampliada. Usa los filtros para moverte entre aplicaciones, carteles, juegos, testimonios, muros y piezas especiales.</p>
         </section>
@@ -393,13 +393,13 @@
                 { src: '../img/APLICACIONES/muro.png', title: 'Muro 01', category: 'muro', description: 'Propuesta mural que lleva la identidad hacia una escala más inmersiva.', meta: 'Serie / Muro' },
                 { src: '../img/APLICACIONES/muro3.png', title: 'Muro 02', category: 'muro', description: 'Variación del mural para reforzar el impacto visual en gran formato.', meta: 'Serie / Muro' },
                 { src: '../img/APLICACIONES/muro4.png', title: 'Muro 03', category: 'muro', description: 'Exploración final para mantener continuidad entre gráfica y atmósfera urbana.', meta: 'Serie / Muro' },
-                { src: '../img/mk/mk%20cartel.jpeg', title: 'Mockup Cartel 01', category: 'mockups', description: 'Aplicación del cartel en contexto real para evaluar lectura, escala y presencia visual.', meta: 'Mockup / Cartel' },
-                { src: '../img/mk/mk%20cartel1.jpeg', title: 'Mockup Cartel 02', category: 'mockups', description: 'Segunda colocación del cartel para mostrar cómo respira dentro del entorno urbano.', meta: 'Mockup / Cartel' },
+                { src: '../img/mk/mk%20cartel.jpeg', title: 'Mockup Cartel', category: 'mockups', description: 'Aplicación del cartel en contexto real para evaluar lectura, escala y presencia visual.', meta: 'Mockup / Cartel' },
+                { src: '../img/mk/mk%20cartel1.jpeg', title: 'Mockup Cartel', category: 'mockups', description: 'Segunda colocación del cartel para mostrar cómo respira dentro del entorno urbano.', meta: 'Mockup / Cartel' },
                 { src: '../img/mk/mk%20muro.png', title: 'Mockup Muro', category: 'mockups', description: 'Mockup de muro para entender la pieza como intervención espacial.', meta: 'Mockup / Muro' },
                 { src: '../img/mk/mk%20web.png', title: 'Mockup Web', category: 'mockups', description: 'Vista digital para mostrar la identidad integrada a una experiencia web.', meta: 'Mockup / Web' },
-                { src: '../img/mk/mk.jpg', title: 'Mockup 05', category: 'mockups', description: 'Exploración general para verificar el comportamiento visual de la propuesta.', meta: 'Mockup / General' },
-                { src: '../img/mk/mk6.png', title: 'Mockup 06', category: 'mockups', description: 'Otra adaptación de la identidad para revisar proporción y contraste.', meta: 'Mockup / General' },
-                { src: '../img/mk/mkcartel3.png', title: 'Mockup Cartel 03', category: 'mockups', description: 'Variación adicional del cartel en entorno real.', meta: 'Mockup / Cartel' },
+                { src: '../img/mk/mk.jpg', title: 'Mockup Espectacular', category: 'mockups', description: 'Exploración general para verificar el comportamiento visual de la propuesta.', meta: 'Mockup / General' },
+                { src: '../img/mk/mk6.png', title: 'Mockup', category: 'mockups', description: 'Otra adaptación de la identidad para revisar proporción y contraste.', meta: 'Mockup / General' },
+                { src: '../img/mk/mkcartel3.png', title: 'Mockup Cartel', category: 'mockups', description: 'Variación adicional del cartel en entorno real.', meta: 'Mockup / Cartel' },
                 { src: '../img/mk/mockup%20billboard%202.jpg', title: 'Mockup Billboard', category: 'mockups', description: 'Aplicación de gran formato para comprobar visibilidad a distancia.', meta: 'Mockup / Billboard' },
                 { id: 'testimonio-01', src: '../img/APLICACIONES/testi1.png', title: 'Testimonio 01', category: 'testimonios', description: 'Primera pieza testimonial, con enfoque humano y lectura clara.', meta: 'Serie / Testimonios' },
                 { id: 'testimonio-02', src: '../img/APLICACIONES/testi2.png', title: 'Testimonio 02', category: 'testimonios', description: 'Segunda pieza testimonial para dar continuidad a la narrativa.', meta: 'Serie / Testimonios' },
@@ -425,10 +425,22 @@
                 lightbox.classList.add('is-open');
                 lightbox.setAttribute('aria-hidden', 'false');
                 lightboxImage.src = item.src;
-                lightboxImage.alt = item.title;
-                lightboxTitle.textContent = item.title;
+                    // for several visual series show only the numeric part in title
+                    const numericCategories = new Set(['aplicaciones', 'carteles', 'juego', 'testimonios', 'especiales', 'mockups', 'muro']);
+                    let displayTitle = item.title;
+                    if (numericCategories.has(item.category)) {
+                        const m = item.title.match(/(\d+)/);
+                        displayTitle = m ? String(m[1]).padStart(2, '0') : item.title;
+                    }
+                lightboxImage.alt = displayTitle;
+                lightboxTitle.textContent = displayTitle;
                 lightboxDescription.textContent = item.description;
-                lightboxMeta.innerHTML = `<span>${item.meta}</span><span>${item.category}</span>`;
+                    // hide meta/category for these series — show only description
+                    if (numericCategories.has(item.category)) {
+                        lightboxMeta.innerHTML = '';
+                    } else {
+                        lightboxMeta.innerHTML = `<span>${item.meta}</span><span>${item.category}</span>`;
+                    }
                 lightboxClose.focus();
             }
 
@@ -443,17 +455,25 @@
                 galleryItems
                     .filter((item) => activeFilter === 'all' || item.category === activeFilter)
                     .forEach((item) => {
+                        // determine display title: for 'aplicaciones' show only the two-digit number
+                        let displayTitle = item.title;
+                            const numericCategories = new Set(['aplicaciones', 'carteles', 'juego', 'testimonios', 'especiales', 'mockups', 'muro']);
+                            if (numericCategories.has(item.category)) {
+                                const m = item.title.match(/(\d+)/);
+                                displayTitle = m ? String(m[1]).padStart(2, '0') : item.title;
+                            }
                         const figure = document.createElement('figure');
                         figure.className = 'gallery-item';
                         figure.tabIndex = 0;
                         figure.dataset.category = item.category;
+                            const categorySpan = numericCategories.has(item.category) ? '' : `<span>${item.category}</span>`;
                         figure.innerHTML = `
-                            <img src="${item.src}" alt="${item.title}">
-                            <figcaption>
-                                <strong>${item.title}</strong>
-                                <span>${item.category}</span>
-                            </figcaption>
-                        `;
+                                <img src="${item.src}" alt="${item.title}">
+                                <figcaption>
+                                    <strong>${displayTitle}</strong>
+                                    ${categorySpan}
+                                </figcaption>
+                            `;
                         figure.addEventListener('click', () => openLightbox(item));
                         figure.addEventListener('keydown', (event) => {
                             if (event.key === 'Enter' || event.key === ' ') {

@@ -532,7 +532,7 @@ li {
 .lead {
     padding: 1rem 1.1rem;
     background: var(--surface-strong);
-    border-left: 3px solid var(--title-color);
+    border-left: none;
     border-radius: 12px;
     max-width: 85ch;
 }
@@ -598,6 +598,7 @@ li {
 #proposito h2 {
     letter-spacing: 0.01em;
 }
+
 
 .section {
     margin-top: 1.2rem;
