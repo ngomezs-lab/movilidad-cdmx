@@ -206,6 +206,7 @@ footer#home-footer {
     margin: 0;
     padding-bottom: 0.2rem;
     padding-top: 1rem;
+    padding-left: 0.75rem;
     transform: translateY(0);
 }
 
@@ -228,7 +229,7 @@ footer#home-footer {
     font-size: 1.5rem;
     color: rgb(255, 255, 255);
     padding: 2.5rem;
-    background: rgba(53, 52, 52, 0.7);
+    background: rgba(10, 10, 10, 0.92);
     border-radius: 16px;
     font-family: var(--text-font);
 }
