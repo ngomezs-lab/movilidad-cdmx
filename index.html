@@ -11,42 +11,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/olz1irj.css">
     <link rel="stylesheet" href="./css/style.css">
 
-    <style>
-        /* Override the page background image on home and add full-screen video */
-        body {
-            background-image: none !important;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .home-video {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            opacity: 0.88;
-            filter: contrast(1.35) saturate(1.18) brightness(1.02);
-            pointer-events: none;
-        }
-
-        .home-overlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35));
-            z-index: -1;
-            pointer-events: none;
-        }
-    </style>
-
 </head>
 
 <body class="no-footer">
-    <video class="home-video" autoplay muted loop playsinline>
-        <source src="img/mujermetro.mp4" type="video/mp4">
-    </video>
-    <div class="home-overlay"></div>
     <main>
         <section class="hero" id="introduccion">
             <h1 id="expuestas-title">EXPUESTAS</h1>
@@ -59,9 +26,7 @@
             <a class="hero-cta" href="docs/estacion.html#estacion" title="Experiencia interactiva">Conoce más →</a>
 
         </section>
-        </div>
     </main>
-    <a class="hero-cta" href="docs/estacion.html#estacion" title="Experiencia interactiva" style="display:inline-block;margin:1.5rem 0;padding:0.65rem 1rem;border-radius:10px;background:var(--title-color);color:#08100e;text-decoration:none;font-weight:800">Conoce más →</a>
 
     <script>
         const title = document.getElementById('expuestas-title');
