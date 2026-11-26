@@ -90,28 +90,12 @@
 
         .experience-video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: auto;
-            height: auto;
-            max-width: 420px;
-            max-height: 62vh;
-            transform: translate(-50%, -50%) scale(1.04);
-            object-fit: contain;
-            opacity: 0;
-            transition: opacity 520ms ease, transform 650ms ease, filter 520ms ease;
-            filter: saturate(1.02) contrast(1.08) brightness(0.92);
-        }
-
-        .experience-video.is-active {
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            filter: saturate(1.08) contrast(1.14) brightness(0.98);
-        }
-
-        .experience-video.is-muted {
-            opacity: 0.18;
-            transform: translate(-50%, -50%) scale(1.03);
+            filter: saturate(1.02) contrast(1.08) brightness(0.92);
         }
 
         .experience-overlay {
@@ -305,30 +289,23 @@
 
     <main class="experience-main">
         <section class="experience-stage" id="experienceStage" aria-label="Pantalla interactiva de videos">
-            <video class="experience-video is-active" id="frasesVideo" preload="auto" playsinline loop muted>
-                <source src="../img/frases.mp4" type="video/mp4">
-            </video>
-            <video class="experience-video is-muted" id="testimoniosVideo" preload="auto" playsinline loop muted>
-                <source src="../img/testimonios.mp4" type="video/mp4">
+            <video class="experience-video" id="experienceVideo" preload="metadata" playsinline controls poster="../img/APLICACIONES/cartel2.png" aria-label="Video interactivo del cartel sobre hombres">
+                <source src="../img/Cartel_HOMBRES.mp4" type="video/mp4">
             </video>
 
-            <div class="experience-overlay" aria-hidden="true">
+            <div class="experience-overlay">
                 <div class="experience-overlay-panel">
-                    <span class="experience-prompt">Pasa el mouse aquí</span>
-                    <h2>Iniciar experiencia</h2>
-                    <p>Frases al frente. Testimonios al interactuar.</p>
+                    <span class="experience-prompt">Cartel interactivo</span>
+                    <h2>Reproducir video</h2>
+                    <p>Explora el cartel audiovisual.</p>
                     <button class="ui-action-button ui-action-button-primary" id="startExperience" type="button">Iniciar experiencia</button>
                 </div>
             </div>
         </section>
 
-            <audio id="ambientAudio" preload="auto" loop>
-                <source src="../img/expuestas.mp4" type="audio/mp4">
-            </audio>
-
         <div class="experience-caption" aria-hidden="true">
-            <strong>Video mural interactivo</strong>
-            <span class="caption-hint">Pasa el mouse para ver testimonios</span>
+            <strong>Cartel interactivo</strong>
+            <span class="caption-hint">Usa los controles del video para reproducirlo</span>
         </div>
 
         <div class="experience-cta">
@@ -340,124 +317,19 @@
     <script>
         const stage = document.getElementById('experienceStage');
         const startButton = document.getElementById('startExperience');
-        const frasesVideo = document.getElementById('frasesVideo');
-        const testimoniosVideo = document.getElementById('testimoniosVideo');
+        const experienceVideo = document.getElementById('experienceVideo');
         const shouldAutoplay = new URLSearchParams(window.location.search).get('autoplay') === '1';
-        let hasStarted = false;
-        let activeLayer = 'frases';
-        const ambientAudio = document.getElementById('ambientAudio');
-
-        function applyLayer(layerName) {
-            activeLayer = layerName;
-
-            const primary = layerName === 'frases' ? frasesVideo : testimoniosVideo;
-            const secondary = layerName === 'frases' ? testimoniosVideo : frasesVideo;
-
-            primary.classList.add('is-active');
-            primary.classList.remove('is-muted');
-            secondary.classList.remove('is-active');
-            secondary.classList.add('is-muted');
-
-            primary.muted = false;
-            secondary.muted = true;
-
-            primary.volume = 1;
-            secondary.volume = 0;
-
-            stage.dataset.active = layerName;
-        }
-
-        async function playBothVideos() {
-            try {
-                // start videos playing (they remain muted until we fade ambient out)
-                frasesVideo.muted = true;
-                testimoniosVideo.muted = true;
-                frasesVideo.volume = 1;
-                testimoniosVideo.volume = 0;
-                await Promise.all([frasesVideo.play(), testimoniosVideo.play()]);
-                // once videos are playing, fade out ambient audio
-                if (ambientAudio && !ambientAudio.paused) {
-                    await fadeAudio(ambientAudio, 0, 700);
-                    try { ambientAudio.pause(); } catch (e) { /* ignore */ }
-                }
-            } catch (error) {
-                void error;
-            }
-        }
-
-        function fadeAudio(audioEl, targetVolume = 0, duration = 600) {
-            return new Promise((resolve) => {
-                if (!audioEl) return resolve();
-                const start = audioEl.volume;
-                const delta = targetVolume - start;
-                if (duration <= 0) {
-                    audioEl.volume = targetVolume;
-                    return resolve();
-                }
-                const stepTime = 50;
-                const steps = Math.max(1, Math.round(duration / stepTime));
-                let currentStep = 0;
-                const iv = setInterval(() => {
-                    currentStep++;
-                    const progress = currentStep / steps;
-                    audioEl.volume = Math.max(0, Math.min(1, start + delta * progress));
-                    if (currentStep >= steps) {
-                        clearInterval(iv);
-                        resolve();
-                    }
-                }, stepTime);
-            });
-        }
 
         async function startExperience() {
-            if (hasStarted) {
-                return;
-            }
-
-            hasStarted = true;
-            stage.classList.add('started');
-            startButton.setAttribute('disabled', 'disabled');
-            // ensure ambient audio is playing on entry; try to play if needed
             try {
-                if (ambientAudio && ambientAudio.paused) {
-                    ambientAudio.volume = 0.7;
-                    void ambientAudio.play();
-                }
-            } catch (e) { void e; }
-
-            await playBothVideos();
-            // after videos have started, switch to frases audio
-            applyLayer('frases');
-            // unmute the active video
-            frasesVideo.muted = false;
-            frasesVideo.volume = 1;
+                await experienceVideo.play();
+                stage.classList.add('started');
+            } catch (error) {
+                console.error('No se pudo reproducir Cartel_HOMBRES.mp4:', error);
+                startButton.textContent = 'Reintentar reproducción';
+            }
         }
 
-        function switchTo(layerName) {
-            if (!hasStarted) {
-                return;
-            }
-
-            if (activeLayer === layerName) {
-                return;
-            }
-
-            applyLayer(layerName);
-        }
-
-        stage.addEventListener('pointerenter', () => switchTo('testimonios'));
-        stage.addEventListener('pointerleave', () => switchTo('frases'));
-        stage.addEventListener('focusin', () => switchTo('testimonios'));
-        stage.addEventListener('focusout', () => switchTo('frases'));
-        stage.addEventListener('click', () => {
-            if (!hasStarted) {
-                void startExperience();
-                return;
-            }
-
-            const nextLayer = activeLayer === 'frases' ? 'testimonios' : 'frases';
-            switchTo(nextLayer);
-        });
         startButton.addEventListener('click', (event) => {
             event.preventDefault();
             void startExperience();
@@ -466,20 +338,6 @@
         if (shouldAutoplay) {
             void startExperience();
         }
-
-        frasesVideo.addEventListener('ended', () => {
-            if (activeLayer === 'frases') {
-                frasesVideo.currentTime = 0;
-                void frasesVideo.play();
-            }
-        });
-
-        testimoniosVideo.addEventListener('ended', () => {
-            if (activeLayer === 'testimonios') {
-                testimoniosVideo.currentTime = 0;
-                void testimoniosVideo.play();
-            }
-        });
 
         // Dropdown 'Introducción' interaction (click toggle for touch, accessible via keyboard)
         (function(){

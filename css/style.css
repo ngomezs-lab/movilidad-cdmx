@@ -488,3 +488,130 @@ body.no-footer .site-footer { display: none !important; }
     .site-footer-inner { padding: 0 0.6rem; gap: 0.5rem; }
     .site-footer::before { width: 56px; height: 5px; }
 }
+
+/* ==================================
+   VERSION MOVIL — EXPUESTAS
+   ================================== */
+
+@media screen and (max-width: 600px) {
+
+    html {
+        font-size: 10px;
+    }
+
+    body {
+        background-attachment: scroll;
+        background-position: center;
+        background-size: cover;
+        min-height: 100svh;
+        overflow-x: hidden;
+    }
+
+    main {
+        min-height: 100svh;
+        height: auto;
+        padding: 7rem 2rem 5rem;
+        justify-content: center;
+    }
+
+    .hero {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* Título principal */
+    .hero h1,
+    #expuestas-title {
+        width: 100%;
+        font-size: clamp(4.5rem, 13vw, 7rem);
+        line-height: 0.95;
+        letter-spacing: 0.01em;
+        padding: 1rem 0;
+        margin: 0;
+        justify-content: center;
+        text-align: center;
+        flex-wrap: nowrap;
+    }
+
+    /* Subtítulo */
+    #introduccion h2 {
+        font-size: clamp(2.2rem, 7vw, 3.5rem);
+        line-height: 1.05;
+        padding: 1rem 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    /* Texto introductorio */
+    .hero .lead {
+        width: 100%;
+        max-width: 100%;
+        font-size: 1.4rem;
+        line-height: 1.6;
+        padding: 1.8rem;
+        margin: 0;
+        border-radius: 12px;
+        text-align: left;
+    }
+
+    /* Botón */
+    .hero-cta {
+        width: 100%;
+        max-width: 280px;
+        margin: 1rem auto;
+        min-height: 48px;
+        font-size: 1.4rem;
+        padding: 1rem;
+    }
+
+    /* Ventana de contacto */
+    .chat-box {
+        width: calc(100vw - 3rem);
+        max-width: 360px;
+        right: 1.5rem;
+        bottom: 8rem;
+        max-height: 65svh;
+    }
+
+    .chat-toggle {
+        right: 1.5rem;
+        bottom: 1.5rem;
+        width: 50px;
+        height: 50px;
+    }
+
+    .chat-input input {
+        min-width: 0;
+        font-size: 1.2rem;
+    }
+
+    .chat-input button {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (max-width: 600px) {
+  #expuestas-title {
+    font-size: clamp(2.8rem, 20vw, 4rem);
+    letter-spacing: -0.03em;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 380px) {
+  #expuestas-title {
+    font-size: 11vw;
+    letter-spacing: -0.08em;
+    transform: translateX(-18px);
+  }
+}
+@media screen and (min-width: 381px) and (max-width: 400px) {
+  #expuestas-title {
+    font-size: 19vw;
+    letter-spacing: -0.08em;
+    transform: translateX(-18px);
+  }
+}
