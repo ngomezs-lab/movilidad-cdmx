@@ -759,3 +759,18 @@ body.no-footer .site-footer { display: none !important; }
         padding: 1rem;
     }
 }
+@media (max-width: 700px) {
+    html {
+        scroll-padding-top: 180px;
+    }
+
+    .site-header {
+        position: relative;
+        top: auto;
+    }
+
+    .section,
+    .hero {
+        scroll-margin-top: 20px;
+    }
+}
