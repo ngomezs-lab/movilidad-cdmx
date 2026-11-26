@@ -615,3 +615,11 @@ body.no-footer .site-footer { display: none !important; }
     transform: translateX(-18px);
   }
 }
+@media screen and (max-width: 600px) {
+  body {
+    background-image: url("../img/foto fondo.jpeg");
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+  }
+}
